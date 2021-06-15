@@ -59,8 +59,6 @@ public class Main {
 
 		myShopCart.printProducts();
 		System.out.println(myShopCart.getTotalCost());
-		
-		System.out.println("Poggers");
 
 		// while (isRunning) {
 
