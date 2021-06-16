@@ -6,11 +6,12 @@ public class BusinessCustomer extends Customer {
 
 	public BusinessCustomer(String customerName, String customerSurname, String customerAddress, int BusinessSize) {
 		super(customerName, customerSurname, customerAddress);
-		if(BusinessSize != 1 || BusinessSize != 2 || BusinessSize != 3) {
+		if (BusinessSize != 1 || BusinessSize != 2 || BusinessSize != 3) {
 			System.out.println("Fehler BusinessCustomer");
-		}else {
+		} else {
 			this.BusinessSize = BusinessSize;
 		}
+
 	}
 
 }

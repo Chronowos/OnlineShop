@@ -57,11 +57,22 @@ public class Products {
 	}
 
 	public String toString() {
-		String outputText = String.format("Nummer \t\t Name \t\t Anzahl \t Preis \t\t Rabatt \n %-15s %-15s %-15s %-15s %-15s", 
-				productNumber, productName, quantity, basePrice, productDiscount);
+		String outputText = String.format("%-10s %-20s %-10s %-15s %-15s \n", productNumber, productName, quantity,
+				basePrice, productDiscount);
 		return outputText;
-		//return productNumber + "\t\t | " + productName + "\t\t | " + quantity + "\t\t | " + basePrice + "€\t\t | "
-			//	+ productDiscount + "% Rabatt";
+		// return productNumber + "\t\t | " + productName + "\t\t | " + quantity + "\t\t
+		// | " + basePrice + "€\t\t | "
+		// + productDiscount + "% Rabatt";
+	}
+
+	public String toStringListing() {
+		String outputText = String.format(
+				"Nummer \t\t Name \t\t Anzahl \t Preis \t\t Rabatt \n %-15s %-15s %-15s %-15s %-15s", productNumber,
+				productName, quantity, basePrice, productDiscount);
+		return outputText;
+		// return productNumber + "\t\t | " + productName + "\t\t | " + quantity + "\t\t
+		// | " + basePrice + "€\t\t | "
+		// + productDiscount + "% Rabatt";
 	}
 
 }
