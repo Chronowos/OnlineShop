@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import comparators.ProductNumberComparator;
+import comparators.ProductPriceComparatorAscending;
+import comparators.ProductPriceComparatorDescending;
 
 public class ProductCatalog {
 
@@ -19,8 +21,6 @@ public class ProductCatalog {
 	}
 
 	public void printListing() {
-		ProductNumberComparator numComparator = new ProductNumberComparator();
-		Collections.sort(myItemListing, numComparator);
 		String outputText = String.format("%-10s %-20s %-10s %-15s %-15s", "Nummer", "Name", "Anzahl", "Preis",
 				"Rabatt");
 		System.out.println(outputText);
@@ -28,6 +28,21 @@ public class ProductCatalog {
 		for (Products myProducts : myItemListing) {
 			System.out.println(myProducts.toStringListing());
 		}
+	}
+	
+	public void sortAfterNumber() {
+		ProductNumberComparator numComparator = new ProductNumberComparator();
+		Collections.sort(myItemListing, numComparator);
+	}
+
+	public void sortAfterPriceDesc() {
+		ProductPriceComparatorDescending descComparator = new ProductPriceComparatorDescending();
+		Collections.sort(myItemListing, descComparator);
+	}
+
+	public void sortAfterPriceAsc() {
+		ProductPriceComparatorAscending ascComparator = new ProductPriceComparatorAscending();
+		Collections.sort(myItemListing, ascComparator);
 	}
 
 }
