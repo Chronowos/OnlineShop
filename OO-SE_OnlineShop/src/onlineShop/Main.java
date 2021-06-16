@@ -64,11 +64,13 @@ public class Main {
 
 		while (isRunning) {
 			System.out.println("\nWas möchtest du tun?");
+			//Wichtig für Erweiterungen Println und Case aktualisieren!
 			System.out.println("1: Produktkatalog anschauen \n" + "2: Warenkorb anschauen \n"
 					+ "3: Bezahlvorgang starten \n" + "4: Programm beenden");
 			System.out.println("------------------------------------------------");
 			aktion = sc.nextLine().toLowerCase();
 
+			//Bei Erweiterung, neue Case erstellen
 			switch (aktion) {
 			case "1":
 
@@ -110,8 +112,10 @@ public class Main {
 			case "4":
 				isRunning = false;
 				System.out.println("Danke für's benutzen!");
+				break;
 			default:
 				System.out.println("Bitte gebe eine gültige Zahl ein! (1 - 4)");
+				break;
 			}
 
 		}
