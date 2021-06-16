@@ -1,7 +1,12 @@
 package onlineShop;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import comparators.ProductNumberComparator;
+import comparators.ProductPriceComparatorAscending;
+import comparators.ProductPriceComparatorDescending;
 
 public class ShoppingCart {
 
@@ -35,6 +40,21 @@ public class ShoppingCart {
 			totalPrice = totalPrice + (myProducts.getQuantity() * myProducts.getBasePrice());
 		}
 		return totalPrice;
+	}
+
+	public void sortAfterNumber() {
+		ProductNumberComparator numComparator = new ProductNumberComparator();
+		Collections.sort(myShoppingCart, numComparator);
+	}
+
+	public void sortAfterPriceDesc() {
+		ProductPriceComparatorDescending descComparator = new ProductPriceComparatorDescending();
+		Collections.sort(myShoppingCart, descComparator);
+	}
+
+	public void sortAfterPriceAsc() {
+		ProductPriceComparatorAscending ascComparator = new ProductPriceComparatorAscending();
+		Collections.sort(myShoppingCart, ascComparator);
 	}
 
 }
