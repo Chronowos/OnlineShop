@@ -5,32 +5,57 @@ import java.util.*;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		//Instanziieren des Einkaufswagen und des Produktkatalogs
 		ShoppingCart myShopCart = new ShoppingCart();
+		ProductCatalog myProdCatalog = new ProductCatalog();
+
+		//Variablen deklarieren
 		Boolean isRunning = true;
+		Products[] prodArray = new Products[10];
 		String inputName;
 		String inputPassword;
 		String aktion;
 
+		//Auslesung von Inputs
 		Scanner sc = new Scanner(System.in);
 
+		//Anmeldedaten für Privatkunde
 		String privKundeName = "DanielMeier123";
 		String privKundePassword = "Obunga123";
 
+		//Anmeldedaten für Firmenkunde
 		String uKundeName = "GeldIstCool";
 		String uKundePassword = "IchBinReich123";
-
+		
+		//Produkt-Objekte instanziieren und in einem Array speichern, für einfachen späteren Zugriff
+		prodArray[0] = new Products(104, "Kettensäge", 7, 550.00, 0);
+		prodArray[1] = new Products(710, "Panzertape", 25, 5.00, 0);
+		prodArray[2] = new Products(471, "SkiMaske", 37, 25.00, 0);
+		prodArray[3] = new Products(293, "Baseballschläger", 8, 75.00, 0);
+		prodArray[4] = new Products(510, "Tisch", 5, 250.00, 0);
+		prodArray[5] = new Products(410, "Laptop", 11, 1050.00, 0);
+		prodArray[6] = new Products(790, "Tastatur", 5, 110.00, 0);
+		prodArray[7] = new Products(669, "Kopfhörer", 5, 250.00, 0);
+		prodArray[8] = new Products(912, "Bildschirm", 3, 478.00, 0);
+		prodArray[9] = new Products(244, "Maus", 7, 45.00, 0);
+		
+		//For-Loop um die Produkte in den Shop zu laden (Zuweisung zur ArrayList)
+		for(int i = 0; i<=9; i++) {
+			myProdCatalog.addProductToListing(prodArray[i]);
+		}
+		
 		System.out.println("------------------------------------------------");
 		System.out.println("Willkommen in unserem kleinen, aber feinen Shop. \n"
 				+ "Schau dich gerne etwas um und durchstöbere unser Produktsortiment - vielleicht findest du ja etwas tolles!");
 		System.out.println("------------------------------------------------ \n");
-		System.out.println("Logge dich bitte bei uns eins!");
+		System.out.println("Logge dich bitte bei uns eins!\n");
 
 		System.out.println("Benutzername:");
 		inputName = sc.nextLine();
 		inputName = inputName.toLowerCase();
 
-		System.out.println("\nPassword:");
+		System.out.println("Password:");
 		inputPassword = sc.nextLine();
 		inputPassword = inputPassword.toLowerCase();
 
@@ -79,19 +104,7 @@ public class Main {
 
 		}
 
-		Products Kettensäge = new Products(104, "Kettensäge", 2, 550.00, 0);
-		Products Panzertape = new Products(710, "Panzertape", 3, 5.00, 0);
-		Products SkiMaske = new Products(471, "SkiMaske", 1, 25.00, 0);
-		Products Baseballschläger = new Products(293, "Baseballschläger", 2, 75.00, 0);
-
-		myShopCart.addProductToCart(Kettensäge);
-		myShopCart.addProductToCart(Panzertape);
-		myShopCart.addProductToCart(SkiMaske);
-		myShopCart.addProductToCart(Baseballschläger);
-		myShopCart.addProductToCart(new Products(684, "Coole Wippe", 2, 300.00, 0));
-
-		myShopCart.printProducts();
-		System.out.println(myShopCart.getTotalCost());
+		myProdCatalog.printListing();
 		sc.close();
 
 	}
