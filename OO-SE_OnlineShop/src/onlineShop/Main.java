@@ -64,13 +64,13 @@ public class Main {
 
 		while (isRunning) {
 			System.out.println("\nWas möchtest du tun?");
-			//Wichtig für Erweiterungen Println und Case aktualisieren!
+			// Wichtig für Erweiterungen Println und Case aktualisieren!
 			System.out.println("1: Produktkatalog anschauen \n" + "2: Warenkorb anschauen \n"
 					+ "3: Bezahlvorgang starten \n" + "4: Programm beenden");
 			System.out.println("------------------------------------------------");
 			aktion = sc.nextLine().toLowerCase();
 
-			//Bei Erweiterung, neue Case erstellen
+			// Bei Erweiterung, neue Case erstellen
 			switch (aktion) {
 			case "1":
 
@@ -99,6 +99,7 @@ public class Main {
 					}
 					break;
 				case "3":
+					myProdCatalog.printListing();
 					break;
 				}
 
@@ -150,6 +151,7 @@ public class Main {
 		String inputName;
 
 		// Auslesung von Inputs des Users
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("------------------------------------------------");
@@ -171,6 +173,7 @@ public class Main {
 		String inputPassword;
 
 		// Auslesung von Inputs des Users
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Password:");
