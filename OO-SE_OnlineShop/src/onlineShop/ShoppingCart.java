@@ -10,15 +10,25 @@ import comparators.ProductPriceComparatorDescending;
 
 public class ShoppingCart {
 
-	List<Products> myShoppingCart = new ArrayList<Products>();
+	private List<Products> myShoppingCart = new ArrayList<Products>();
 	private Double totalPrice = 0.0;
 
 	public ShoppingCart() {
 
 	}
 
-	public void addProductToCart(Products product) {
-		myShoppingCart.add(product);
+	public void addProductToCart(Products product, int amount) {
+
+		int amountBefore = product.getQuantity();
+
+		if (product.getQuantity() < amount) {
+			System.out.println("Fehler Bestand");
+		} else {
+			product.setQuantity(product.getQuantity() - amount);
+		}
+		myShoppingCart.add(new Products(product.getProductNumber(), product.getProductName(),
+				amountBefore - product.getQuantity(), product.getBasePrice(), product.getProductDiscount()));
+
 	}
 
 	public void printProducts() {

@@ -10,7 +10,7 @@ import comparators.ProductPriceComparatorDescending;
 
 public class ProductCatalog {
 
-	List<Products> myItemListing = new ArrayList<Products>();
+	private List<Products> myItemListing = new ArrayList<Products>();
 
 	public ProductCatalog() {
 

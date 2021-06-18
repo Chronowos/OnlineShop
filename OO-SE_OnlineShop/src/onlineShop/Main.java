@@ -7,7 +7,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 
-		// Instanziieren des Einkaufswagen und des Produktkatalogs
+		// Erstellung Einkaufswagen- und Produktkatalog-Objekt
 		ShoppingCart myShopCart = new ShoppingCart();
 		ProductCatalog myProdCatalog = new ProductCatalog();
 
@@ -18,6 +18,9 @@ public class Main {
 		String inputName;
 		String inputPassword;
 		String aktion;
+		int productNumberToSearch;
+		int productNumber;
+		int productQuantity;
 
 		// Auslesung von Inputs des Users
 		Scanner sc = new Scanner(System.in);
@@ -86,7 +89,17 @@ public class Main {
 
 					// Produkt in den Warenkorb hinzufügen
 					case "1":
-						System.out.println("Tester");
+						System.out.println("------------------------------------------------");
+						System.out.println(
+								"Welches Produkt möchtest du in den Warenkorb hinzufügen? Bitte gib die Artikelnummer an!");
+						System.out.println("------------------------------------------------");
+						productNumberToSearch = sc.nextInt();
+						productNumber = findPosInArray(prodArray, productNumberToSearch);
+						System.out.println("Wie viele möchtest du davon? Verfügbar von: "
+								+ prodArray[productNumber].getProductName() + ", "
+								+ prodArray[productNumber].getQuantity() + " Stück.");
+						productQuantity = sc.nextInt();
+						myShopCart.addProductToCart(prodArray[productNumber], productQuantity);
 						break;
 
 					// Sortiment sortieren
@@ -115,7 +128,7 @@ public class Main {
 
 			// Warenkorb anschauen
 			case "2":
-				System.out.println("input 2");
+				myShopCart.printProducts();
 				break;
 
 			// Bezahlvorgang starten
@@ -202,6 +215,17 @@ public class Main {
 		System.out.println("------------------------------------------------");
 		System.out.println("Anmeldung erfolgreich, willkommen " + name.toUpperCase());
 		System.out.println("------------------------------------------------");
+
+	}
+
+	public static int findPosInArray(Products[] myArray, long pNumber) {
+
+		for (int i = 0; i < myArray.length; i++) {
+			if (myArray[i].getProductNumber() == pNumber) {
+				return i;
+			}
+		}
+		return -1;
 
 	}
 
