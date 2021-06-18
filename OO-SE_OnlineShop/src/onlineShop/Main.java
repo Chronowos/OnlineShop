@@ -73,6 +73,8 @@ public class Main {
 
 			// Bei Erweiterung, neue Case erstellen
 			switch (aktion) {
+
+			// Produktkatalog anschauen
 			case "1":
 
 				while (caseRunning) {
@@ -84,9 +86,13 @@ public class Main {
 					aktion = sc.nextLine().toLowerCase();
 
 					switch (aktion) {
+
+					// Produkt in den Warenkorb hinzufügen
 					case "1":
 						System.out.println("Tester");
 						break;
+
+					// Sortiment sortieren
 					case "2":
 						System.out.println(
 								"Wie soll sortiert werden?\n" + "1: Preis aufsteigend\n" + "2: Preis absteigend");
@@ -100,6 +106,8 @@ public class Main {
 							myProdCatalog.printListing();
 						}
 						break;
+
+					// Zurück
 					case "3":
 						caseRunning = false;
 						break;
@@ -107,12 +115,18 @@ public class Main {
 				}
 				caseRunning = true;
 				break;
+
+			// Warenkorb anschauen
 			case "2":
 				System.out.println("input 2");
 				break;
+
+			// Bezahlvorgang starten
 			case "3":
 				System.out.println("input 3");
 				break;
+
+			// Shop beenden
 			case "4":
 				isRunning = false;
 				System.out.println("Danke für's benutzen!");
