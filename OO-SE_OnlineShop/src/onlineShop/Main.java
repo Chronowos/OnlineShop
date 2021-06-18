@@ -12,6 +12,7 @@ public class Main {
 
 		// Variablen deklarieren
 		Boolean isRunning = true;
+		Boolean caseRunning = true;
 		Products[] prodArray = new Products[10];
 		String inputName;
 		String inputPassword;
@@ -74,35 +75,37 @@ public class Main {
 			switch (aktion) {
 			case "1":
 
-				myProdCatalog.printListing();
-				System.out.println("\nWas möchtest du nun tun?");
-				System.out
-						.println("1: Produkt in den Warenkorb hinzufügen\n" + "2: Sortiment sortieren\n" + "3: Zurück");
-				System.out.println("------------------------------------------------");
-				aktion = sc.nextLine().toLowerCase();
-
-				switch (aktion) {
-				case "1":
-					System.out.println("Tester");
-					break;
-				case "2":
-					System.out
-							.println("Wie soll sortiert werden?\n" + "1: Preis aufsteigend\n" + "2: Preis absteigend");
+				while (caseRunning) {
+					myProdCatalog.printListing();
+					System.out.println("\nWas möchtest du nun tun?");
+					System.out.println(
+							"1: Produkt in den Warenkorb hinzufügen\n" + "2: Sortiment sortieren\n" + "3: Zurück");
 					System.out.println("------------------------------------------------");
 					aktion = sc.nextLine().toLowerCase();
-					if (aktion.equals("1")) {
-						myProdCatalog.sortAfterPriceAsc();
-						myProdCatalog.printListing();
-					} else if (aktion.equals("2")) {
-						myProdCatalog.sortAfterPriceDesc();
-						myProdCatalog.printListing();
-					}
-					break;
-				case "3":
-					myProdCatalog.printListing();
-					break;
-				}
 
+					switch (aktion) {
+					case "1":
+						System.out.println("Tester");
+						break;
+					case "2":
+						System.out.println(
+								"Wie soll sortiert werden?\n" + "1: Preis aufsteigend\n" + "2: Preis absteigend");
+						System.out.println("------------------------------------------------");
+						aktion = sc.nextLine().toLowerCase();
+						if (aktion.equals("1")) {
+							myProdCatalog.sortAfterPriceAsc();
+							myProdCatalog.printListing();
+						} else if (aktion.equals("2")) {
+							myProdCatalog.sortAfterPriceDesc();
+							myProdCatalog.printListing();
+						}
+						break;
+					case "3":
+						caseRunning = false;
+						break;
+					}
+				}
+				caseRunning = true;
 				break;
 			case "2":
 				System.out.println("input 2");
