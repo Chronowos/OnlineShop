@@ -1,10 +1,11 @@
 package onlineShop;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		// Instanziieren des Einkaufswagen und des Produktkatalogs
 		ShoppingCart myShopCart = new ShoppingCart();
@@ -46,17 +47,13 @@ public class Main {
 		// Kontrolle, welcher Benutzer sich anmeldet
 		if (inputName.equals(privKundeName.toLowerCase()) && inputPassword.equals(privKundePassword.toLowerCase())) {
 
-			Customer customer1 = new Customer("Herbert", "Winkler", "Kuckhoffstraﬂe 2");
-			System.out.println("------------------------------------------------");
-			System.out.println("(Privat) Anmeldung erfolgreich, willkommen " + inputName.toUpperCase());
-			System.out.println("------------------------------------------------");
+			Customer customer1 = new Customer("Herbert", "Winkler", "");
+			printWelcomeMessage(inputName);
 
 		} else if (inputName.equals(uKundeName.toLowerCase()) && inputPassword.equals(uKundePassword.toLowerCase())) {
 
-			BusinessCustomer businessCustomer1 = new BusinessCustomer("Michael", "Wendler", "Prenzlauer Allee 17", 3);
-			System.out.println("------------------------------------------------");
-			System.out.println("(Firma) Anmeldung erfolgreich, willkommen " + inputName.toUpperCase());
-			System.out.println("------------------------------------------------");
+			BusinessCustomer businessCustomer1 = new BusinessCustomer("Michael", "Wendler", "", 3);
+			printWelcomeMessage(inputName);
 
 		} else {
 			System.out.println("Benutzername oder Password falsch, versuche es bitte erneut!");
@@ -100,10 +97,10 @@ public class Main {
 						aktion = sc.nextLine().toLowerCase();
 						if (aktion.equals("1")) {
 							myProdCatalog.sortAfterPriceAsc();
-							myProdCatalog.printListing();
+							// myProdCatalog.printListing();
 						} else if (aktion.equals("2")) {
 							myProdCatalog.sortAfterPriceDesc();
-							myProdCatalog.printListing();
+							// myProdCatalog.printListing();
 						}
 						break;
 
@@ -198,6 +195,14 @@ public class Main {
 		inputPassword = inputPassword.toLowerCase();
 
 		return inputPassword;
+	}
+
+	public static void printWelcomeMessage(String name) {
+
+		System.out.println("------------------------------------------------");
+		System.out.println("Anmeldung erfolgreich, willkommen " + name.toUpperCase());
+		System.out.println("------------------------------------------------");
+
 	}
 
 }

@@ -8,6 +8,7 @@ public class BusinessCustomer extends Customer {
 		super(customerName, customerSurname, customerAddress);
 		if (BusinessSize != 1 || BusinessSize != 2 || BusinessSize != 3) {
 			System.out.println("Fehler BusinessCustomer");
+			System.exit(0);
 		} else {
 			this.BusinessSize = BusinessSize;
 		}
