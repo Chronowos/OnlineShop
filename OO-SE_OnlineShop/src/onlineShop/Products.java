@@ -1,6 +1,8 @@
 package onlineShop;
 
-public class Products {
+import java.io.Serializable;
+
+public class Products implements Serializable {
 
 	private long productNumber;
 	private String productName;
