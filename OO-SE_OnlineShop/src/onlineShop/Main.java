@@ -1,6 +1,12 @@
 package onlineShop;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 
 public class Main {
@@ -14,6 +20,7 @@ public class Main {
 		// Variablen deklarieren
 		Boolean isRunning = true;
 		Boolean caseRunning = true;
+		Boolean shoppingCartRunning = true;
 		Products[] prodArray = new Products[10];
 		String inputName;
 		String inputPassword;
@@ -66,8 +73,7 @@ public class Main {
 		while (isRunning) {
 			System.out.println("\nWas möchtest du tun?");
 			// Wichtig für Erweiterungen Println und Case aktualisieren!
-			System.out.println("1: Produktkatalog anschauen \n" + "2: Warenkorb anschauen \n"
-					+ "3: Bezahlvorgang starten \n" + "4: Programm beenden");
+			System.out.println("1: Produktkatalog anschauen \n" + "2: Warenkorb anschauen \n" + "3: Programm beenden");
 			System.out.println("------------------------------------------------");
 			aktion = sc.nextLine().toLowerCase();
 
@@ -100,6 +106,7 @@ public class Main {
 								+ prodArray[productNumber].getQuantity() + " Stück.");
 						productQuantity = sc.nextInt();
 						myShopCart.addProductToCart(prodArray[productNumber], productQuantity);
+						saveCatalogue(prodArray);
 						break;
 
 					// Sortiment sortieren
@@ -128,21 +135,35 @@ public class Main {
 
 			// Warenkorb anschauen
 			case "2":
-				myShopCart.printProducts();
-				break;
 
-			// Bezahlvorgang starten
-			case "3":
-				System.out.println("input 3");
+				while (shoppingCartRunning) {
+
+					myShopCart.printProducts();
+					System.out.println("\nWas möchtest du nun tun?");
+					System.out.println("1: Kaufen\n" + "2: Bearbeiten\n" + "3: Zurück");
+					aktion = sc.nextLine().toLowerCase();
+
+					switch (aktion) {
+
+					case "1":
+					case "2":
+					case "3":
+						shoppingCartRunning = false;
+						break;
+					}
+				}
+
+				shoppingCartRunning = true;
 				break;
 
 			// Shop beenden
-			case "4":
+			case "3":
 				isRunning = false;
 				System.out.println("Danke für's benutzen!");
 				break;
+
 			default:
-				System.out.println("Bitte gebe eine gültige Zahl ein! (1 - 4)");
+				System.out.println("Bitte gebe eine gültige Zahl ein! (1 - 3)");
 				break;
 			}
 
@@ -155,6 +176,14 @@ public class Main {
 	public static Products[] fillProdListingArray() {
 
 		Products[] prodArray = new Products[10];
+		Products[] serArray = new Products[10];
+
+		File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\ProductCatalogue.ser");
+
+		if (checkFile.exists()) {
+			serArray = loadCatalogue();
+			return serArray;
+		}
 
 		// Produkt-Objekte instanziieren und in einem Array speichern, für einfachen
 		// späteren Zugriff
@@ -227,6 +256,43 @@ public class Main {
 		}
 		return -1;
 
+	}
+
+	public static void saveCatalogue(Products[] prodArray) {
+
+		try {
+			FileOutputStream fos = new FileOutputStream(
+					System.getProperty("user.home") + "\\Desktop\\ProductCatalogue.ser");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(prodArray);
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static Products[] loadCatalogue() {
+
+		Products[] returnArray = new Products[10];
+
+		try {
+			FileInputStream fis = new FileInputStream(
+					System.getProperty("user.home") + "\\Desktop\\ProductCatalogue.ser");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			returnArray = (Products[]) ois.readObject();
+			ois.close();
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return returnArray;
 	}
 
 }
