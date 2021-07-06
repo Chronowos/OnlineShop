@@ -66,5 +66,10 @@ public class ShoppingCart {
 		ProductPriceComparatorAscending ascComparator = new ProductPriceComparatorAscending();
 		Collections.sort(myShoppingCart, ascComparator);
 	}
+	
+	public int getTotalItems() {
+		return myShoppingCart.size();
+	}
+	
 
 }

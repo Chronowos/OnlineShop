@@ -22,12 +22,15 @@ public class Main {
 		Boolean caseRunning = true;
 		Boolean shoppingCartRunning = true;
 		Products[] prodArray = new Products[10];
+		String line = "------------------------------------------------";
 		String inputName;
 		String inputPassword;
 		String aktion;
 		int productNumberToSearch;
 		int productNumber;
 		int productQuantity;
+		Customer customer1;
+		BusinessCustomer businessCustomer1;
 
 		// Auslesung von Inputs des Users
 		Scanner sc = new Scanner(System.in);
@@ -57,12 +60,12 @@ public class Main {
 		// Kontrolle, welcher Benutzer sich anmeldet
 		if (inputName.equals(privKundeName.toLowerCase()) && inputPassword.equals(privKundePassword.toLowerCase())) {
 
-			Customer customer1 = new Customer("Herbert", "Winkler", "");
+			customer1 = new Customer("Herbert", "Winkler", "");
 			printWelcomeMessage(inputName);
 
 		} else if (inputName.equals(uKundeName.toLowerCase()) && inputPassword.equals(uKundePassword.toLowerCase())) {
 
-			BusinessCustomer businessCustomer1 = new BusinessCustomer("Michael", "Wendler", "", 3);
+			businessCustomer1 = new BusinessCustomer("Michael", "Wendler", "", 3);
 			printWelcomeMessage(inputName);
 
 		} else {
@@ -74,7 +77,7 @@ public class Main {
 			System.out.println("\nWas möchtest du tun?");
 			// Wichtig für Erweiterungen Println und Case aktualisieren!
 			System.out.println("1: Produktkatalog anschauen \n" + "2: Warenkorb anschauen \n" + "3: Programm beenden");
-			System.out.println("------------------------------------------------");
+			System.out.println(line);
 			aktion = sc.nextLine().toLowerCase();
 
 			// Bei Erweiterung, neue Case erstellen
@@ -88,17 +91,17 @@ public class Main {
 					System.out.println("\nWas möchtest du nun tun?");
 					System.out.println(
 							"1: Produkt in den Warenkorb hinzufügen\n" + "2: Sortiment sortieren\n" + "3: Zurück");
-					System.out.println("------------------------------------------------");
+					System.out.println(line);
 					aktion = sc.nextLine().toLowerCase();
 
 					switch (aktion) {
 
 					// Produkt in den Warenkorb hinzufügen
 					case "1":
-						System.out.println("------------------------------------------------");
+						System.out.println(line);
 						System.out.println(
 								"Welches Produkt möchtest du in den Warenkorb hinzufügen? Bitte gib die Artikelnummer an!");
-						System.out.println("------------------------------------------------");
+						System.out.println(line);
 						productNumberToSearch = sc.nextInt();
 						productNumber = findPosInArray(prodArray, productNumberToSearch);
 						System.out.println("Wie viele möchtest du davon? Verfügbar von: "
@@ -113,7 +116,7 @@ public class Main {
 					case "2":
 						System.out.println(
 								"Wie soll sortiert werden?\n" + "1: Preis aufsteigend\n" + "2: Preis absteigend");
-						System.out.println("------------------------------------------------");
+						System.out.println(line);
 						aktion = sc.nextLine().toLowerCase();
 						if (aktion.equals("1")) {
 							myProdCatalog.sortAfterPriceAsc();
@@ -140,13 +143,20 @@ public class Main {
 
 					myShopCart.printProducts();
 					System.out.println("\nWas möchtest du nun tun?");
-					System.out.println("1: Kaufen\n" + "2: Bearbeiten\n" + "3: Zurück");
+					System.out.println("1: Warenkorb kaufen\n" + "2: Warenkorb bearbeiten\n" + "3: Zurück");
 					aktion = sc.nextLine().toLowerCase();
 
 					switch (aktion) {
 
 					case "1":
+						Order myOrder = new Order(myShopCart);
+						myOrder.completeOrder();
+						shoppingCartRunning = false;
+						break;
+
 					case "2":
+
+						break;
 					case "3":
 						shoppingCartRunning = false;
 						break;
@@ -177,12 +187,24 @@ public class Main {
 
 		Products[] prodArray = new Products[10];
 		Products[] serArray = new Products[10];
+		String input;
+
+		Scanner sc = new Scanner(System.in);
 
 		File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\ProductCatalogue.ser");
 
 		if (checkFile.exists()) {
-			serArray = loadCatalogue();
-			return serArray;
+
+			System.out.println("Ein Warenkorb wurde als Datei gefunden, möchtest du diesen nutzen? (1-2)\n" + "1: Ja\n"
+					+ "2: Nein");
+			input = sc.nextLine();
+			if (input.equals("1")) {
+				serArray = loadCatalogue();
+				return serArray;
+			} else {
+				System.out.println("Standard Produktkatalog wurde geladen.");
+			}
+
 		}
 
 		// Produkt-Objekte instanziieren und in einem Array speichern, für einfachen
@@ -205,15 +227,16 @@ public class Main {
 	public static String getUsername() {
 
 		String inputName;
+		String line = "------------------------------------------------";
 
 		// Auslesung von Inputs des Users
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 
-		System.out.println("------------------------------------------------");
+		System.out.println(line);
 		System.out.println("Willkommen in unserem kleinen, aber feinen Shop. \n"
 				+ "Schau dich gerne etwas um und durchstöbere unser Produktsortiment - vielleicht findest du ja etwas tolles!");
-		System.out.println("------------------------------------------------ \n");
+		System.out.println(line);
 		System.out.println("Logge dich bitte bei uns eins!\n");
 
 		System.out.println("Benutzername:");
@@ -241,9 +264,11 @@ public class Main {
 
 	public static void printWelcomeMessage(String name) {
 
-		System.out.println("------------------------------------------------");
+		String line = "------------------------------------------------";
+
+		System.out.println(line);
 		System.out.println("Anmeldung erfolgreich, willkommen " + name.toUpperCase());
-		System.out.println("------------------------------------------------");
+		System.out.println(line);
 
 	}
 
