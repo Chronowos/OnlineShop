@@ -25,10 +25,9 @@ public class ShoppingCart {
 			System.out.println("Fehler Bestand");
 		} else {
 			product.setQuantity(product.getQuantity() - amount);
+			myShoppingCart.add(new Products(product.getProductNumber(), product.getProductName(),
+					amountBefore - product.getQuantity(), product.getBasePrice(), product.getProductDiscount()));
 		}
-		myShoppingCart.add(new Products(product.getProductNumber(), product.getProductName(),
-				amountBefore - product.getQuantity(), product.getBasePrice(), product.getProductDiscount()));
-
 	}
 
 	public void printProducts() {
