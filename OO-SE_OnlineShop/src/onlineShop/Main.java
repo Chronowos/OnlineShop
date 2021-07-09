@@ -23,25 +23,17 @@ public class Main {
 		Boolean shoppingCartRunning = true;
 		Products[] prodArray = new Products[10];
 		String line = "------------------------------------------------";
-		String inputName;
-		String inputPassword;
 		String aktion;
 		int productNumberToSearch;
 		int productNumber;
 		int productQuantity;
 		Customer customer1;
-		BusinessCustomer businessCustomer1;
 
 		// Auslesung von Inputs des Users
 		Scanner sc = new Scanner(System.in);
 
-		// Anmeldedaten für Privatkunde
-		String privKundeName = "Leon";
-		String privKundePassword = "Leon";
-
-		// Anmeldedaten für Firmenkunde
-		String uKundeName = "GeldIstCool";
-		String uKundePassword = "IchBinReich123";
+		// Customer-Objekt, wenn Speicherdatei vorhanden
+		customer1 = loginProcess();
 
 		// Produkt-Array befüllen
 		prodArray = fillProdListingArray();
@@ -49,28 +41,6 @@ public class Main {
 		// For-Loop um die Produkte in den Shop zu laden (Zuweisung zur ArrayList)
 		for (int i = 0; i <= 9; i++) {
 			myProdCatalog.addProductToListing(prodArray[i]);
-		}
-
-		// Benutzernamen zuweisen
-		inputName = getUsername();
-
-		// Password zuweisen
-		inputPassword = getPassword();
-
-		// Kontrolle, welcher Benutzer sich anmeldet
-		if (inputName.equals(privKundeName.toLowerCase()) && inputPassword.equals(privKundePassword.toLowerCase())) {
-
-			customer1 = new Customer("Herbert", "Winkler", "");
-			printWelcomeMessage(inputName);
-
-		} else if (inputName.equals(uKundeName.toLowerCase()) && inputPassword.equals(uKundePassword.toLowerCase())) {
-
-			businessCustomer1 = new BusinessCustomer("Michael", "Wendler", "", 3);
-			printWelcomeMessage(inputName);
-
-		} else {
-			System.out.println("Benutzername oder Password falsch, versuche es bitte erneut!");
-			isRunning = false;
 		}
 
 		while (isRunning) {
@@ -189,6 +159,7 @@ public class Main {
 		Products[] serArray = new Products[10];
 		String input;
 
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 
 		File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\ProductCatalogue.ser");
@@ -262,16 +233,6 @@ public class Main {
 		return inputPassword;
 	}
 
-	public static void printWelcomeMessage(String name) {
-
-		String line = "------------------------------------------------";
-
-		System.out.println(line);
-		System.out.println("Anmeldung erfolgreich, willkommen " + name.toUpperCase());
-		System.out.println(line);
-
-	}
-
 	public static int findPosInArray(Products[] myArray, long pNumber) {
 
 		for (int i = 0; i < myArray.length; i++) {
@@ -318,6 +279,97 @@ public class Main {
 		}
 
 		return returnArray;
+	}
+
+	public static Customer loginProcess() {
+
+		String aktion;
+		Customer loginCustomer = new Customer("Empty", "Empty");
+		String passwort;
+		String benutzername;
+		String regBenutzername;
+		String regPasswort;
+
+		// Auslesung von Inputs des Users
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("Willkommen im Anmeldeprozess! Was möchtest du tun?");
+		System.out.println("1: Anmelden | 2: Registrieren");
+
+		aktion = sc.nextLine();
+
+		switch (aktion) {
+		case "1":
+			File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\LoginDetails.ser");
+			if (checkFile.exists()) {
+				loginCustomer = readLogin();
+				System.out.println("Dein Benutzername: ");
+				benutzername = sc.nextLine();
+				System.out.println("Dein Passwort: ");
+				passwort = sc.nextLine();
+
+				if (benutzername.equals(loginCustomer.getCustomerName())
+						&& passwort.equals(loginCustomer.getPassword())) {
+					return loginCustomer;
+				} else {
+					System.out.println("Deine Daten waren leider falsch.");
+				}
+
+			} else {
+				System.out.println("Serverprobleme. (Logindatei wurde nicht gefunden)");
+			}
+			break;
+		case "2":
+			System.out.println("Dein Benutzername (Registrierung): ");
+			regBenutzername = sc.nextLine();
+			System.out.println("Dein Passwort (Registrierung): ");
+			regPasswort = sc.nextLine();
+
+			loginCustomer = new Customer(regBenutzername, regPasswort);
+
+			writeLogin(loginCustomer);
+
+			return loginCustomer;
+
+		}
+		return loginCustomer;
+
+	}
+
+	public static Customer readLogin() {
+
+		Customer returnCustomer = new Customer("Empty", "Empty");
+
+		try {
+			FileInputStream fis = new FileInputStream(System.getProperty("user.home") + "\\Desktop\\LoginDetails.ser");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			returnCustomer = (Customer) ois.readObject();
+			ois.close();
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return returnCustomer;
+	}
+
+	public static void writeLogin(Customer customer) {
+		try {
+			FileOutputStream fos = new FileOutputStream(
+					System.getProperty("user.home") + "\\Desktop\\LoginDetails.ser");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(customer);
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

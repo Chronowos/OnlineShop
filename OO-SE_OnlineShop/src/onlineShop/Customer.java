@@ -1,15 +1,15 @@
 package onlineShop;
 
-public class Customer {
+import java.io.Serializable;
+
+public class Customer implements Serializable {
 
 	private String customerName;
-	private String customerSurname;
-	private String customerAddress;
+	private String password;
 
-	public Customer(String customerName, String customerSurname, String customerAddress) {
+	public Customer(String customerName, String password) {
 		this.customerName = customerName;
-		this.customerSurname = customerSurname;
-		this.customerAddress = customerAddress;
+		this.password = password;
 	}
 
 	public String getCustomerName() {
@@ -20,20 +20,14 @@ public class Customer {
 		this.customerName = customerName;
 	}
 
-	public String getCustomerSurname() {
-		return customerSurname;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setCustomerSurname(String customerSurname) {
-		this.customerSurname = customerSurname;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getCustomerAddress() {
-		return customerAddress;
-	}
 
-	public void setCustomerAddress(String customerAddress) {
-		this.customerAddress = customerAddress;
-	}
 
 }
