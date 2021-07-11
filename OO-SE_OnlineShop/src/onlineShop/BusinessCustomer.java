@@ -8,13 +8,22 @@ public class BusinessCustomer extends Customer implements Serializable {
 
 	public BusinessCustomer(String customerName, String password, int BusinessSize) {
 		super(customerName, password);
-		if (BusinessSize != 1 || BusinessSize != 2 || BusinessSize != 3) {
-			System.out.println("Fehler BusinessCustomer");
-			System.exit(0);
-		} else {
+		if (BusinessSize > 3 || BusinessSize < 1) {
+			System.out.println("Zu groß oder zu klein");
+		}else {
 			this.BusinessSize = BusinessSize;
 		}
 
 	}
+
+	@Override
+	public String toString() {
+		
+		return "BusinessCustomer [BusinessSize=" + BusinessSize + ", CustomerName=" + getCustomerName() + ", Password="		
+				+ getPassword() + "]";
+
+	}
+	
+
 
 }
