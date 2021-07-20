@@ -28,10 +28,10 @@ public class Main {
 		Products[] prodArray = new Products[10];
 		String line = "------------------------------------------------";
 		String aktion;
+		String isBusiness;
 		int productNumberToSearch;
 		int productNumber;
 		int productQuantity;
-		String isBusiness;
 
 		// Auslesung von Inputs des Users
 		Scanner sc = new Scanner(System.in);
@@ -44,9 +44,6 @@ public class Main {
 		} else {
 			businessCustomer1 = loginProcessBusiness();
 		}
-
-		System.out.println(customer1.toString());
-		System.out.println(businessCustomer1.toString());
 
 		// Produkt-Array befüllen
 		prodArray = fillProdListingArray();
@@ -131,15 +128,18 @@ public class Main {
 
 					switch (aktion) {
 
+					//Warenkorb kaufen
 					case "1":
 						Order myOrder = new Order(myShopCart);
 						myOrder.completeOrder();
 						shoppingCartRunning = false;
 						break;
 
+					//Warenkorb bearbeiten
 					case "2":
-
 						break;
+						
+					//Zurück
 					case "3":
 						shoppingCartRunning = false;
 						break;
