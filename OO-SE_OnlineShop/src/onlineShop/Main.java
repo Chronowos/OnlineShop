@@ -11,6 +11,8 @@ import java.util.*;
 
 public class Main {
 
+	public static String isBusiness;
+
 	public static void main(String[] args) throws IOException {
 
 		// Erstellung Einkaufswagen- und Produktkatalog-Objekt
@@ -28,7 +30,7 @@ public class Main {
 		Products[] prodArray = new Products[10];
 		String line = "------------------------------------------------";
 		String aktion;
-		String isBusiness;
+		// String isBusiness;
 		int productNumberToSearch;
 		int productNumber;
 		int productQuantity;
@@ -128,18 +130,25 @@ public class Main {
 
 					switch (aktion) {
 
-					//Warenkorb kaufen
+					// Warenkorb kaufen
 					case "1":
 						Order myOrder = new Order(myShopCart);
-						myOrder.completeOrder();
+						if (Main.isBusiness.equals("1")) {
+							System.out.println("Privat");
+							// myOrder.completeOrder(customer1);
+						} else {
+							System.out.println("Geschäft");
+							// myOrder.completeOrder(businessCustomer1);
+						}
 						shoppingCartRunning = false;
 						break;
 
-					//Warenkorb bearbeiten
+					// Warenkorb bearbeiten
 					case "2":
+						shoppingCartRunning = false;
 						break;
-						
-					//Zurück
+
+					// Zurück
 					case "3":
 						shoppingCartRunning = false;
 						break;

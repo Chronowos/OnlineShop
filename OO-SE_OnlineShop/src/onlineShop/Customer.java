@@ -33,6 +33,4 @@ public class Customer implements Serializable {
 		return "Customer [customerName=" + customerName + ", password=" + password + "]";
 	}
 
-
-
 }

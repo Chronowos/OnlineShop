@@ -29,7 +29,7 @@ public class ProductCatalog {
 			System.out.println(myProducts.toStringListing());
 		}
 	}
-	
+
 	public void sortAfterNumber() {
 		ProductNumberComparator numComparator = new ProductNumberComparator();
 		Collections.sort(myItemListing, numComparator);

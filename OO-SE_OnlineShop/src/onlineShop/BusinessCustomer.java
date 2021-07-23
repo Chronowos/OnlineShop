@@ -10,7 +10,7 @@ public class BusinessCustomer extends Customer implements Serializable {
 		super(customerName, password);
 		if (BusinessSize > 3 || BusinessSize < 1) {
 			System.out.println("Zu groß oder zu klein");
-		}else {
+		} else {
 			this.BusinessSize = BusinessSize;
 		}
 
@@ -18,12 +18,10 @@ public class BusinessCustomer extends Customer implements Serializable {
 
 	@Override
 	public String toString() {
-		
-		return "BusinessCustomer [BusinessSize=" + BusinessSize + ", CustomerName=" + getCustomerName() + ", Password="		
+
+		return "BusinessCustomer [BusinessSize=" + BusinessSize + ", CustomerName=" + getCustomerName() + ", Password="
 				+ getPassword() + "]";
 
 	}
-	
-
 
 }

@@ -1,13 +1,17 @@
 package onlineShop;
 
-public class BankAccount extends Payment {
-	
+public class BankAccount implements Payment {
+
 	private String bank;
 	private long bankCode;
 	private long accountNumber;
-	
+	private double moneyAmount;
+
 	public BankAccount(String bank, long BankCode, long accountNumber, double moneyAmount) {
-		super(moneyAmount);
+		this.bank = bank;
+		this.bankCode = BankCode;
+		this.accountNumber = accountNumber;
+		this.moneyAmount = moneyAmount;
 	}
 
 	public String getBank() {
@@ -33,9 +37,19 @@ public class BankAccount extends Payment {
 	public void setAccountNumber(long accountNumber) {
 		this.accountNumber = accountNumber;
 	}
-	
-	
-	
-	
+
+	public double getMoneyAmount() {
+		return moneyAmount;
+	}
+
+	public void setMoneyAmount(double moneyAmount) {
+		this.moneyAmount = moneyAmount;
+	}
+
+	@Override
+	public void payMoney(double amount) {
+		// TODO Auto-generated method stub
+
+	}
 
 }
