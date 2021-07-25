@@ -1,6 +1,6 @@
 package onlineShop;
 
-public class BankAccount implements Payment {
+public class BankAccount {
 
 	private String bank;
 	private long bankCode;
@@ -38,18 +38,25 @@ public class BankAccount implements Payment {
 		this.accountNumber = accountNumber;
 	}
 
-	public double getMoneyAmount() {
+	public double getBankBalance() {
 		return moneyAmount;
 	}
 
-	public void setMoneyAmount(double moneyAmount) {
+	public void setBankBalance(double moneyAmount) {
 		this.moneyAmount = moneyAmount;
 	}
 
-	@Override
-	public void payMoney(double amount) {
-		// TODO Auto-generated method stub
-
+	public void payMoneyBank(double amount) {
+		this.setBankBalance(getBankBalance() - amount);
 	}
+
+	@Override
+	public String toString() {
+		return "BankAccount [bank=" + bank + ", bankCode=" + bankCode + ", accountNumber=" + accountNumber
+				+ ", moneyAmount=" + moneyAmount;
+	}
+	
+	
+	
 
 }

@@ -3,13 +3,15 @@ package onlineShop;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Order {
 
 	private Customer targetCustomer;
 	private BusinessCustomer targetBusinessCustomer;
 	private ShoppingCart shoppingCart;
-
+	
+	
 	public Order(ShoppingCart shoppingCart) {
 		this.shoppingCart = shoppingCart;
 	}
@@ -22,8 +24,11 @@ public class Order {
 		long bankCode;
 		long accountNumber;
 		long cardNumber;
+		double cardAmount;
+		double bankAmount;
 		int expDate;
 		int cvv;
+		
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Bestellung eingegangen.\n Anzahl an Produkten im Warenkorb: "
@@ -46,10 +51,12 @@ public class Order {
 			System.out.println("Kontonummer:\n");
 			accountNumber = sc.nextLong();
 
-			BankAccount myBank = new BankAccount(bank, bankCode, accountNumber, 100000.00);
+			BankAccount myBank = new BankAccount(bank, bankCode, accountNumber, ThreadLocalRandom.current().nextDouble(2000.00, 10000.00));
 
-			myBank.payMoney(this.shoppingCart.getTotalCost());
+			myBank.payMoneyBank(this.shoppingCart.getTotalCost());
 
+			System.out.println(myBank.toString() + " Adresse=" + adresse + "]");
+			
 			break;
 
 		case "2":
@@ -61,9 +68,9 @@ public class Order {
 			System.out.println("CVV-Code (dreistellig):\n");
 			cvv = sc.nextInt();
 
-			CreditCard myCard = new CreditCard(cardNumber, expDate, cvv, 100000.00);
+			CreditCard myCard = new CreditCard(cardNumber, expDate, cvv, ThreadLocalRandom.current().nextDouble(2000.00, 10000.00));
 
-			myCard.payMoney(this.shoppingCart.getTotalCost());
+			myCard.payMoneyCard(this.shoppingCart.getTotalCost());
 
 			break;
 

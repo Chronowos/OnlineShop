@@ -1,6 +1,6 @@
 package onlineShop;
 
-public class CreditCard implements Payment {
+public class CreditCard {
 
 	private long cardNumber;
 	private int expirationYear;
@@ -39,18 +39,16 @@ public class CreditCard implements Payment {
 		this.cvv = cvv;
 	}
 
-	public double getMoneyAmount() {
+	public double getCardBalance() {
 		return moneyAmount;
 	}
 
-	public void setMoneyAmount(double moneyAmount) {
+	public void setCardBalance(double moneyAmount) {
 		this.moneyAmount = moneyAmount;
 	}
 
-	@Override
-	public void payMoney(double amount) {
-		// TODO Auto-generated method stub
-
+	public void payMoneyCard(double amount) {
+		this.setCardBalance(getCardBalance() - amount);
 	}
 
 }

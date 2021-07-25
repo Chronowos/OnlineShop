@@ -135,7 +135,7 @@ public class Main {
 						Order myOrder = new Order(myShopCart);
 						if (Main.isBusiness.equals("1")) {
 							System.out.println("Privat");
-							// myOrder.completeOrder(customer1);
+							myOrder.completeOrder(customer1);
 						} else {
 							System.out.println("Geschäft");
 							// myOrder.completeOrder(businessCustomer1);
