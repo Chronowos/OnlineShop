@@ -31,9 +31,12 @@ public class Main {
 		String line = "------------------------------------------------";
 		String aktion;
 		// String isBusiness;
+		Products changeProduct;
 		int productNumberToSearch;
 		int productNumber;
 		int productQuantity;
+		int productNumberInCart;
+		int newQuantity;
 
 		// Auslesung von Inputs des Users
 		Scanner sc = new Scanner(System.in);
@@ -134,17 +137,29 @@ public class Main {
 					case "1":
 						Order myOrder = new Order(myShopCart);
 						if (Main.isBusiness.equals("1")) {
-							System.out.println("Privat");
 							myOrder.completeOrder(customer1);
 						} else {
-							System.out.println("Geschäft");
-							// myOrder.completeOrder(businessCustomer1);
+							myOrder.completeOrderBusiness(businessCustomer1);
 						}
 						shoppingCartRunning = false;
 						break;
 
 					// Warenkorb bearbeiten
 					case "2":
+						System.out.println("Welches Produkt soll bearbeitet werden? Schreibe die Produktposition!");
+						productNumberInCart = sc.nextInt();
+						// Produkt mit der Nummer im Warenkorb finden
+						changeProduct = myShopCart.get(productNumberInCart);
+
+						System.out.println("Du hast momentan " + myShopCart.get(productNumberInCart).getQuantity()
+								+ "Elemente in deinem Warenkorb.");
+						System.out.println("Wie viele möchtest du jetzt?");
+						newQuantity = sc.nextInt();
+
+						myShopCart.get(productNumberInCart).setQuantity(newQuantity);
+
+						// Fragen auf wie viel es geändert werden soll
+						// Produkt ändern
 						shoppingCartRunning = false;
 						break;
 
@@ -213,16 +228,16 @@ public class Main {
 
 		// Produkt-Objekte instanziieren und in einem Array speichern, für einfachen
 		// späteren Zugriff
-		prodArray[0] = new Products(104, "Kettensäge", 7, 550.00, 0);
-		prodArray[1] = new Products(710, "Panzertape", 25, 5.00, 0);
-		prodArray[2] = new Products(471, "SkiMaske", 37, 25.00, 0);
-		prodArray[3] = new Products(293, "Baseballschläger", 8, 75.00, 0);
-		prodArray[4] = new Products(510, "Tisch", 5, 250.00, 0);
-		prodArray[5] = new Products(410, "Laptop", 11, 1050.00, 0);
-		prodArray[6] = new Products(790, "Tastatur", 5, 110.00, 0);
-		prodArray[7] = new Products(669, "Kopfhörer", 5, 250.00, 0);
-		prodArray[8] = new Products(912, "Bildschirm", 3, 478.00, 0);
-		prodArray[9] = new Products(244, "Maus", 7, 45.00, 0);
+		prodArray[0] = new Products(104, "Kettensäge", 7, 550.00);
+		prodArray[1] = new Products(710, "Panzertape", 25, 5.00);
+		prodArray[2] = new Products(471, "SkiMaske", 37, 25.00);
+		prodArray[3] = new Products(293, "Baseballschläger", 8, 75.00);
+		prodArray[4] = new Products(510, "Tisch", 5, 250.00);
+		prodArray[5] = new Products(410, "Laptop", 11, 1050.00);
+		prodArray[6] = new Products(790, "Tastatur", 5, 110.00);
+		prodArray[7] = new Products(669, "Kopfhörer", 5, 250.00);
+		prodArray[8] = new Products(912, "Bildschirm", 3, 478.00);
+		prodArray[9] = new Products(244, "Maus", 7, 45.00);
 
 		return prodArray;
 

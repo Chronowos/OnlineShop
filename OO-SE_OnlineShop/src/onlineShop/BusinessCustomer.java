@@ -16,6 +16,14 @@ public class BusinessCustomer extends Customer implements Serializable {
 
 	}
 
+	public int getBusinessSize() {
+		return BusinessSize;
+	}
+
+	public void setBusinessSize(int businessSize) {
+		BusinessSize = businessSize;
+	}
+
 	@Override
 	public String toString() {
 

@@ -55,8 +55,5 @@ public class BankAccount {
 		return "BankAccount [bank=" + bank + ", bankCode=" + bankCode + ", accountNumber=" + accountNumber
 				+ ", moneyAmount=" + moneyAmount;
 	}
-	
-	
-	
 
 }
