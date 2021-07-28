@@ -21,10 +21,9 @@ public class ProductCatalog {
 	}
 
 	public void printListing() {
-		String outputText = String.format("%-10s %-20s %-10s %-15s %-15s", "Nummer", "Name", "Anzahl", "Preis",
-				"Rabatt");
+		String outputText = String.format("%-10s %-20s %-10s %-15s", "Nummer", "Name", "Anzahl", "Preis");
 		System.out.println(outputText);
-		System.out.println("------------------------------------------------------------------------");
+		System.out.println("-------------------------------------------------------------");
 		for (Products myProducts : myItemListing) {
 			System.out.println(myProducts.toStringListing());
 		}

@@ -51,4 +51,10 @@ public class CreditCard {
 		this.setCardBalance(getCardBalance() - amount);
 	}
 
+	@Override
+	public String toString() {
+		return "CreditCard [cardNumber=" + cardNumber + ", expirationYear=" + expirationYear + ", cvv=" + cvv
+				+ ", moneyAmount=" + moneyAmount;
+	}
+
 }

@@ -8,13 +8,11 @@ public class Products implements Serializable {
 	private String productName;
 	private int quantity;
 	private double basePrice;
-	private double productDiscount;
 
-	public Products(long productNumber, String productName, int quantity, double basePrice, double productDiscount) {
+	public Products(long productNumber, String productName, int quantity, double basePrice) {
 		this.productNumber = productNumber;
 		this.productName = productName;
 		this.basePrice = basePrice;
-		this.productDiscount = productDiscount;
 		this.quantity = quantity;
 	}
 
@@ -42,14 +40,6 @@ public class Products implements Serializable {
 		this.basePrice = basePrice;
 	}
 
-	public double getProductDiscount() {
-		return productDiscount;
-	}
-
-	public void setProductDiscount(double productDiscount) {
-		this.productDiscount = productDiscount;
-	}
-
 	public int getQuantity() {
 		return quantity;
 	}
@@ -59,14 +49,13 @@ public class Products implements Serializable {
 	}
 
 	public String toString() {
-		String outputText = String.format("%-10s %-20s %-10s %-15s %-15s \n", productNumber, productName, quantity,
-				basePrice, productDiscount);
+		String outputText = String.format("%-10s %-20s %-10s %-15s \n", productNumber, productName, quantity,
+				basePrice);
 		return outputText;
 	}
 
 	public String toStringListing() {
-		String outputText = String.format("%-10s %-20s %-10s %-15s %-15s", productNumber, productName, quantity,
-				basePrice, productDiscount);
+		String outputText = String.format("%-10s %-20s %-10s %-15s", productNumber, productName, quantity, basePrice);
 		return outputText;
 	}
 

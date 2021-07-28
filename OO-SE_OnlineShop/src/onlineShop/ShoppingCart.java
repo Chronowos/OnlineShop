@@ -12,6 +12,7 @@ public class ShoppingCart {
 
 	private List<Products> myShoppingCart = new ArrayList<Products>();
 	private Double totalPrice = 0.0;
+	private Products returnProduct;
 
 	public ShoppingCart() {
 
@@ -26,17 +27,17 @@ public class ShoppingCart {
 		} else {
 			product.setQuantity(product.getQuantity() - amount);
 			myShoppingCart.add(new Products(product.getProductNumber(), product.getProductName(),
-					amountBefore - product.getQuantity(), product.getBasePrice(), product.getProductDiscount()));
+					amountBefore - product.getQuantity(), product.getBasePrice()));
 		}
 	}
 
 	public void printProducts() {
-		String outputText = String.format("%-10s %-20s %-10s %-15s %-15s", "Nummer", "Name", "Anzahl", "Preis",
-				"Rabatt");
+		String outputText = String.format("%-10s %-10s %-20s %-10s %-15s", "Position", "Nummer", "Name", "Anzahl",
+				"Preis");
 		System.out.println(outputText);
-		System.out.println("------------------------------------------------------------------------");
+		System.out.println("-------------------------------------------------------------");
 		for (Products myProducts : myShoppingCart) {
-			System.out.println(myProducts.toString());
+			System.out.println(myShoppingCart.indexOf(myProducts) + "           " + myProducts.toString());
 			totalPrice = totalPrice + (myProducts.getQuantity() * myProducts.getBasePrice());
 		}
 		System.out.println("-------------");
@@ -68,6 +69,11 @@ public class ShoppingCart {
 
 	public int getTotalItems() {
 		return myShoppingCart.size();
+	}
+
+	public Products get(int pos) {
+		returnProduct = myShoppingCart.get(pos);
+		return returnProduct;
 	}
 
 }
