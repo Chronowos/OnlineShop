@@ -57,7 +57,7 @@ public class Main {
 			myProdCatalog.addProductToListing(prodArray[i]);
 		}
 
-		//Main-Loop
+		// Main-Loop
 		while (isRunning) {
 			System.out.println("\nWas möchtest du tun?");
 			// Wichtig für Erweiterungen Println und Case aktualisieren!
@@ -114,7 +114,7 @@ public class Main {
 					case "3":
 						caseRunning = false;
 						break;
-						
+
 					default:
 						System.out.println("Bitte gib eine gültige Zahl ein.");
 						break;
@@ -169,7 +169,7 @@ public class Main {
 					case "3":
 						shoppingCartRunning = false;
 						break;
-						
+
 					default:
 						System.out.println("Bitte gib eine gültige Zahl ein.");
 					}
