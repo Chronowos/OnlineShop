@@ -23,8 +23,6 @@ public class Order {
 		long bankCode;
 		long accountNumber;
 		long cardNumber;
-		double cardAmount;
-		double bankAmount;
 		int expDate;
 		int cvv;
 
