@@ -23,7 +23,7 @@ public class ShoppingCart {
 		int amountBefore = product.getQuantity();
 
 		if (product.getQuantity() < amount) {
-			System.out.println("Fehler Bestand");
+			System.out.println("Du versucht mehr in den Warenkorb zu legen, als wir verfügbar haben. Versuche es erneut.");
 		} else {
 			product.setQuantity(product.getQuantity() - amount);
 			myShoppingCart.add(new Products(product.getProductNumber(), product.getProductName(),

@@ -30,13 +30,16 @@ public class Order {
 
 		Scanner sc = new Scanner(System.in);
 
-		System.out.println("Bestellung eingegangen.\nAnzahl an Produkten im Warenkorb: "
-				+ this.shoppingCart.getTotalItems() + "\nGesamtkosten: " + this.shoppingCart.getTotalCost());
+		System.out.println("------------------------------------------------");
+		System.out.println("Bestellung eingegangen.");
+		System.out.println("------------------------------------------------");
+		System.out.println("Anzahl an Produkten im Warenkorb: " + this.shoppingCart.getTotalItems() + "\n"
+				+ "Gesamtkosten: " + this.shoppingCart.getTotalCost());
 		System.out.println("------------------------------------------------");
 		System.out.println("Gebe zu erst deine Lieferadresse an: \n");
 		adresse = sc.nextLine();
 
-		System.out.println("Wie möchtest du bezahlen? \n 1: Bank | 2: Kreditkarte");
+		System.out.println("Wie möchtest du bezahlen?" + "\n" + "1: Bank | 2: Kreditkarte");
 
 		aktion = sc.nextLine();
 
@@ -120,7 +123,7 @@ public class Order {
 		System.out.println("Gebe zu erst deine Lieferadresse an: \n");
 		adresse = sc.nextLine();
 
-		System.out.println("Wie möchtest du bezahlen? \n 1: Bank | 2: Kreditkarte");
+		System.out.println("Wie möchtest du bezahlen?" + "\n" + "1: Bank | 2: Kreditkarte");
 
 		aktion = sc.nextLine();
 
@@ -159,6 +162,8 @@ public class Order {
 			myCard.payMoneyCard(this.shoppingCart.getTotalCost());
 
 			break;
+		default:
+			System.out.println("Bitte gib eine gültige Zahl ein.");
 
 		}
 

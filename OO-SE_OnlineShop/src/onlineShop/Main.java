@@ -30,7 +30,6 @@ public class Main {
 		Products[] prodArray = new Products[10];
 		String line = "------------------------------------------------";
 		String aktion;
-		// String isBusiness;
 		Products changeProduct;
 		int productNumberToSearch;
 		int productNumber;
@@ -50,7 +49,7 @@ public class Main {
 			businessCustomer1 = loginProcessBusiness();
 		}
 
-		// Produkt-Array befüllen
+		// Produkt-Array befüllen (Produktliste)
 		prodArray = fillProdListingArray();
 
 		// For-Loop um die Produkte in den Shop zu laden (Zuweisung zur ArrayList)
@@ -58,6 +57,7 @@ public class Main {
 			myProdCatalog.addProductToListing(prodArray[i]);
 		}
 
+		//Main-Loop
 		while (isRunning) {
 			System.out.println("\nWas möchtest du tun?");
 			// Wichtig für Erweiterungen Println und Case aktualisieren!
@@ -105,16 +105,18 @@ public class Main {
 						aktion = sc.nextLine().toLowerCase();
 						if (aktion.equals("1")) {
 							myProdCatalog.sortAfterPriceAsc();
-							// myProdCatalog.printListing();
 						} else if (aktion.equals("2")) {
 							myProdCatalog.sortAfterPriceDesc();
-							// myProdCatalog.printListing();
 						}
 						break;
 
 					// Zurück
 					case "3":
 						caseRunning = false;
+						break;
+						
+					default:
+						System.out.println("Bitte gib eine gültige Zahl ein.");
 						break;
 					}
 				}
@@ -167,6 +169,9 @@ public class Main {
 					case "3":
 						shoppingCartRunning = false;
 						break;
+						
+					default:
+						System.out.println("Bitte gib eine gültige Zahl ein.");
 					}
 				}
 
@@ -180,7 +185,7 @@ public class Main {
 				break;
 
 			default:
-				System.out.println("Bitte gebe eine gültige Zahl ein! (1 - 3)");
+				System.out.println("Bitte gib eine gültige Zahl ein.");
 				break;
 			}
 
