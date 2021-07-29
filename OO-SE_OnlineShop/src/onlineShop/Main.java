@@ -29,6 +29,7 @@ public class Main {
 		Boolean shoppingCartRunning = true;
 		Boolean earlyLoop = true;
 		Boolean putProductInCart = true;
+		Boolean sortProducts = true;
 		Products[] prodArray = new Products[10];
 		String line = "------------------------------------------------";
 		String aktion;
@@ -68,8 +69,10 @@ public class Main {
 			myProdCatalog.addProductToListing(prodArray[i]);
 		}
 
+		// Main-Loop
 		while (isRunning) {
 			System.out.println("\nWas möchtest du tun?");
+
 			// Wichtig für Erweiterungen Println und Case aktualisieren!
 			System.out.println("1: Produktkatalog anschauen \n" + "2: Warenkorb anschauen \n" + "3: Programm beenden");
 			System.out.println(line);
@@ -109,7 +112,9 @@ public class Main {
 								myShopCart.addProductToCart(prodArray[productNumber], productQuantity);
 								putProductInCart = false;
 							} catch (ArrayIndexOutOfBoundsException e) {
-								System.out.println("Ungültige Produktnummer");
+								System.out.println("------------------------------------------------");
+								System.out.println("Ungültige Produktnummer. Versuche es bitte erneut");
+								System.out.println("------------------------------------------------\n");
 							}
 							saveCatalogue(prodArray);
 						}
@@ -117,15 +122,23 @@ public class Main {
 
 					// Sortiment sortieren
 					case "2":
-						System.out.println(
-								"Wie soll sortiert werden?\n" + "1: Preis aufsteigend\n" + "2: Preis absteigend");
-						System.out.println(line);
-						aktion = sc.nextLine().toLowerCase();
-						if (aktion.equals("1")) {
-							myProdCatalog.sortAfterPriceAsc();
-						} else if (aktion.equals("2")) {
-							myProdCatalog.sortAfterPriceDesc();
+
+						while (sortProducts) {
+							System.out.println(
+									"Wie soll sortiert werden?\n" + "1: Preis aufsteigend\n" + "2: Preis absteigend");
+							System.out.println(line);
+							aktion = sc.nextLine().toLowerCase();
+							if (aktion.equals("1")) {
+								sortProducts = false;
+								myProdCatalog.sortAfterPriceAsc();
+							} else if (aktion.equals("2")) {
+								sortProducts = false;
+								myProdCatalog.sortAfterPriceDesc();
+							} else {
+								System.out.println("Bitte gebe eine gültige Zahl ein.");
+							}
 						}
+
 						break;
 
 					// Zurück
@@ -134,7 +147,7 @@ public class Main {
 						break;
 
 					default:
-						System.out.println("1Bitte gebe eine gültige Zahl ein.");
+						System.out.println("Bitte gebe eine gültige Zahl ein.");
 						break;
 					}
 				}
@@ -187,6 +200,7 @@ public class Main {
 						shoppingCartRunning = false;
 						break;
 
+					// Falsche Eingabe
 					default:
 						System.out.println("Bitte gebe eine gültige Zahl ein.");
 						break;
@@ -203,7 +217,7 @@ public class Main {
 				break;
 
 			default:
-				System.out.println("Bitte gebe eine gültige Zahl ein! (1 - 3)");
+				System.out.println("Bitte gebe eine gültige Zahl ein.");
 				break;
 			}
 
@@ -491,7 +505,7 @@ public class Main {
 			}
 		}
 
-		writeLogin(loginCustomer);
+		writeLoginBusiness(loginCustomer);
 
 		return loginCustomer;
 
