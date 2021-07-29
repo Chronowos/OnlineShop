@@ -111,7 +111,7 @@ public class Main {
 								productQuantity = sc.nextInt();
 								myShopCart.addProductToCart(prodArray[productNumber], productQuantity);
 								putProductInCart = false;
-							} catch (ArrayIndexOutOfBoundsException e) {
+							} catch (ArrayIndexOutOfBoundsException | InputMismatchException e) {
 								System.out.println("------------------------------------------------");
 								System.out.println("Ungültige Produktnummer. Versuche es bitte erneut");
 								System.out.println("------------------------------------------------\n");
@@ -346,7 +346,7 @@ public class Main {
 
 			switch (aktion) {
 			case "1":
-				File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\LoginDetails.ser");
+				File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\LoginDetailsCustomer.ser");
 				if (checkFile.exists()) {
 					while (loginLoop) {
 
@@ -370,6 +370,7 @@ public class Main {
 				break;
 
 			case "2":
+				aktionLoop = false;
 				System.out.println("Dein Benutzername (Registrierung): ");
 				regBenutzername = sc.nextLine();
 				System.out.println("Dein Passwort (Registrierung): ");
@@ -397,7 +398,8 @@ public class Main {
 		Customer returnCustomer = new Customer("Empty", "Empty");
 
 		try {
-			FileInputStream fis = new FileInputStream(System.getProperty("user.home") + "\\Desktop\\LoginDetails.ser");
+			FileInputStream fis = new FileInputStream(
+					System.getProperty("user.home") + "\\Desktop\\LoginDetailsCustomer.ser");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			returnCustomer = (Customer) ois.readObject();
 			ois.close();
@@ -417,7 +419,7 @@ public class Main {
 	public static void writeLogin(Customer customer) {
 		try {
 			FileOutputStream fos = new FileOutputStream(
-					System.getProperty("user.home") + "\\Desktop\\LoginDetails.ser");
+					System.getProperty("user.home") + "\\Desktop\\LoginDetailsCustomer.ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(customer);
 			oos.close();

@@ -142,7 +142,7 @@ public class Order {
 			myBank.payMoneyBank(this.shoppingCart.getTotalCost());
 
 			System.out.println(
-					"Erfolg! Du hast gerade " + this.shoppingCart.getTotalCost() + " € bezahlt.\nLieferadresse: "
+					"Erfolg! Du hast gerade " + discounted + " € bezahlt.\nLieferadresse: "
 							+ adresse + "\nDu hast noch " + myBank.getBankBalance() + "€ zur Verfügung.");
 			break;
 
