@@ -30,6 +30,7 @@ public class Main {
 		Boolean earlyLoop = true;
 		Boolean putProductInCart = true;
 		Boolean sortProducts = true;
+		Boolean changeProductInCart = true;
 		Products[] prodArray = new Products[10];
 		String line = "------------------------------------------------";
 		String aktion;
@@ -180,18 +181,31 @@ public class Main {
 
 					// Warenkorb bearbeiten
 					case "2":
-						System.out.println("Welches Produkt soll bearbeitet werden? Schreibe die Produktposition!");
-						productNumberInCart = sc.nextInt();
-						// Produkt mit der Nummer im Warenkorb finden
-						changeProduct = myShopCart.get(productNumberInCart);
 
-						System.out.println("Du hast momentan " + myShopCart.get(productNumberInCart).getQuantity()
-								+ "Elemente in deinem Warenkorb.");
-						System.out.println("Wie viele möchtest du jetzt?");
-						newQuantity = sc.nextInt();
+						while (changeProductInCart) {
+							System.out.println("Welches Produkt soll bearbeitet werden? Schreibe die Produktposition!");
 
-						myShopCart.get(productNumberInCart).setQuantity(newQuantity);
+							try {
+								productNumberInCart = sc.nextInt();
+								// Produkt mit der Nummer im Warenkorb finden
+								changeProduct = myShopCart.get(productNumberInCart);
 
+								System.out
+										.println("Du hast momentan " + myShopCart.get(productNumberInCart).getQuantity()
+												+ "Elemente in deinem Warenkorb.");
+								System.out.println("Wie viele möchtest du jetzt?");
+								newQuantity = sc.nextInt();
+
+								myShopCart.get(productNumberInCart).setQuantity(newQuantity);
+
+								changeProductInCart = false;
+							} catch (InputMismatchException e) {
+								System.out.println("------------------------------------------------");
+								System.out.println("Gebe nur die numerische Produktposition und keinen Text ein.");
+								System.out.println("------------------------------------------------\n");
+								sc.next();
+							}
+						}
 						shoppingCartRunning = false;
 						break;
 
