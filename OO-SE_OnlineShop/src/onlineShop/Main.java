@@ -195,6 +195,8 @@ public class Main {
 
 	}
 
+	// Suche Produkt anhand Produktnummer, benötigt, um Produkte anhand ihrer Nummer
+	// in den Warenkorb zu legen
 	public static int findPosInArray(Products[] myArray, long pNumber) {
 
 		for (int i = 0; i < myArray.length; i++) {
@@ -206,6 +208,7 @@ public class Main {
 
 	}
 
+	// Einlesen und Befüllung von Produktkatalog
 	public static Products[] fillProdListingArray() {
 
 		Products[] prodArray = new Products[10];
@@ -248,6 +251,7 @@ public class Main {
 
 	}
 
+	// Speichern des Produktkatalogs
 	public static void saveCatalogue(Products[] prodArray) {
 
 		try {
@@ -263,6 +267,7 @@ public class Main {
 		}
 	}
 
+	// Laden des Produktkatalogs
 	public static Products[] loadCatalogue() {
 
 		Products[] returnArray = new Products[10];
@@ -285,6 +290,7 @@ public class Main {
 		return returnArray;
 	}
 
+	// Anmelde-/Registrierungsprozess für Benutzer
 	public static Customer loginProcessCustomer() {
 
 		String aktion;
@@ -339,14 +345,13 @@ public class Main {
 
 		}
 
-		// loginCustomer = new Customer(regBenutzername, regPasswort);
-
 		writeLogin(loginCustomer);
 
 		return loginCustomer;
 
 	}
 
+	// Einlesen bereits verwendeter Anmeldedaten
 	public static Customer readLoginCustomer() {
 
 		Customer returnCustomer = new Customer("Empty", "Empty");
@@ -368,6 +373,7 @@ public class Main {
 		return returnCustomer;
 	}
 
+	// Speicherung der Anmeldedaten des Benutzers
 	public static void writeLogin(Customer customer) {
 		try {
 			FileOutputStream fos = new FileOutputStream(
@@ -382,6 +388,7 @@ public class Main {
 		}
 	}
 
+	// Anmelde-/Registrierungsprozess für Firmennutzer
 	public static BusinessCustomer loginProcessBusiness() {
 
 		String aktion;
@@ -445,6 +452,7 @@ public class Main {
 
 	}
 
+	// Einlesen bereits verwendeter Anmeldedaten Firmennutzer
 	public static BusinessCustomer readLoginBusiness() {
 
 		BusinessCustomer returnCustomer = new BusinessCustomer("Empty", "Empty", 1);
@@ -466,6 +474,7 @@ public class Main {
 		return returnCustomer;
 	}
 
+	// Speicherung der Anmeldedaten des Firmennutzer
 	public static void writeLoginBusiness(BusinessCustomer customer) {
 		try {
 			FileOutputStream fos = new FileOutputStream(
