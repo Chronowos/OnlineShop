@@ -27,9 +27,12 @@ public class Main {
 		Boolean isRunning = true;
 		Boolean caseRunning = true;
 		Boolean shoppingCartRunning = true;
+		Boolean earlyLoop = true;
+		Boolean putProductInCart = true;
 		Products[] prodArray = new Products[10];
 		String line = "------------------------------------------------";
 		String aktion;
+		String aktion2;
 		Products changeProduct;
 		int productNumberToSearch;
 		int productNumber;
@@ -40,13 +43,21 @@ public class Main {
 		// Auslesung von Inputs des Users
 		Scanner sc = new Scanner(System.in);
 
-		// Customer-Objekt, wenn Speicherdatei vorhanden
-		System.out.println("Bist du Privat- oder Geschäftskunde?\n" + "1: Privatkunde | 2: Geschäftskunde");
-		isBusiness = sc.nextLine();
-		if (isBusiness.equals("1")) {
-			customer1 = loginProcessCustomer();
-		} else {
-			businessCustomer1 = loginProcessBusiness();
+		while (earlyLoop) {
+			System.out.println("Bist du Privat- oder Geschäftskunde?\n" + "1: Privatkunde | 2: Geschäftskunde");
+			isBusiness = sc.nextLine();
+			if (isBusiness.equals("1")) {
+				earlyLoop = false;
+				customer1 = loginProcessCustomer();
+			} else if (isBusiness.equals("2")) {
+				earlyLoop = false;
+				businessCustomer1 = loginProcessBusiness();
+			} else {
+				System.out.println("------------------------------------------------");
+				System.out.println("Bitte gebe eine gültige Zahl ein.");
+				System.out.println("------------------------------------------------\n");
+			}
+
 		}
 
 		// Produkt-Array befüllen
@@ -76,24 +87,32 @@ public class Main {
 					System.out.println(
 							"1: Produkt in den Warenkorb hinzufügen\n" + "2: Sortiment sortieren\n" + "3: Zurück");
 					System.out.println(line);
-					aktion = sc.nextLine().toLowerCase();
+					aktion2 = sc.nextLine().toLowerCase();
 
-					switch (aktion) {
+					switch (aktion2) {
 
 					// Produkt in den Warenkorb hinzufügen
 					case "1":
-						System.out.println(line);
-						System.out.println(
-								"Welches Produkt möchtest du in den Warenkorb hinzufügen? Bitte gib die Artikelnummer an!");
-						System.out.println(line);
-						productNumberToSearch = sc.nextInt();
-						productNumber = findPosInArray(prodArray, productNumberToSearch);
-						System.out.println("Wie viele möchtest du davon? Verfügbar von: "
-								+ prodArray[productNumber].getProductName() + ", "
-								+ prodArray[productNumber].getQuantity() + " Stück.");
-						productQuantity = sc.nextInt();
-						myShopCart.addProductToCart(prodArray[productNumber], productQuantity);
-						saveCatalogue(prodArray);
+						while (putProductInCart) {
+							System.out.println(line);
+							System.out.println(
+									"Welches Produkt möchtest du in den Warenkorb hinzufügen? Bitte gib die Artikelnummer an!");
+							System.out.println(line);
+							productNumberToSearch = sc.nextInt();
+
+							try {
+								productNumber = findPosInArray(prodArray, productNumberToSearch);
+								System.out.println("Wie viele möchtest du davon? Verfügbar von: "
+										+ prodArray[productNumber].getProductName() + ", "
+										+ prodArray[productNumber].getQuantity() + " Stück.");
+								productQuantity = sc.nextInt();
+								myShopCart.addProductToCart(prodArray[productNumber], productQuantity);
+								putProductInCart = false;
+							} catch (ArrayIndexOutOfBoundsException e) {
+								System.out.println("Ungültige Produktnummer");
+							}
+							saveCatalogue(prodArray);
+						}
 						break;
 
 					// Sortiment sortieren
@@ -104,10 +123,8 @@ public class Main {
 						aktion = sc.nextLine().toLowerCase();
 						if (aktion.equals("1")) {
 							myProdCatalog.sortAfterPriceAsc();
-							// myProdCatalog.printListing();
 						} else if (aktion.equals("2")) {
 							myProdCatalog.sortAfterPriceDesc();
-							// myProdCatalog.printListing();
 						}
 						break;
 
@@ -117,10 +134,11 @@ public class Main {
 						break;
 
 					default:
-						System.out.println("Bitte gebe eine gültige Zahl ein.");
+						System.out.println("1Bitte gebe eine gültige Zahl ein.");
 						break;
 					}
 				}
+
 				caseRunning = true;
 				break;
 
@@ -300,49 +318,57 @@ public class Main {
 		String regBenutzername;
 		String regPasswort;
 		Boolean loginLoop = true;
+		Boolean aktionLoop = true;
 
 		// Auslesung von Inputs des Users
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 
-		System.out.println("Willkommen im Anmeldeprozess! Was möchtest du tun?");
-		System.out.println("1: Anmelden | 2: Registrieren");
+		while (aktionLoop) {
+			System.out.println("Willkommen im Anmeldeprozess! Was möchtest du tun?");
+			System.out.println("1: Anmelden | 2: Registrieren");
 
-		aktion = sc.nextLine();
+			aktion = sc.nextLine();
 
-		switch (aktion) {
-		case "1":
-			File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\LoginDetails.ser");
-			if (checkFile.exists()) {
-				while (loginLoop) {
+			switch (aktion) {
+			case "1":
+				File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\LoginDetails.ser");
+				if (checkFile.exists()) {
+					while (loginLoop) {
 
-					loginCustomer = readLoginCustomer();
-					System.out.println("Dein Benutzername: ");
-					benutzername = sc.nextLine();
-					System.out.println("Dein Passwort: ");
-					passwort = sc.nextLine();
+						loginCustomer = readLoginCustomer();
+						System.out.println("Dein Benutzername: ");
+						benutzername = sc.nextLine();
+						System.out.println("Dein Passwort: ");
+						passwort = sc.nextLine();
 
-					if (benutzername.equals(loginCustomer.getCustomerName())
-							&& passwort.equals(loginCustomer.getPassword())) {
-						loginLoop = false;
-						return loginCustomer;
-					} else {
-						System.out.println("Deine Daten waren leider falsch.");
+						if (benutzername.equals(loginCustomer.getCustomerName())
+								&& passwort.equals(loginCustomer.getPassword())) {
+							loginLoop = false;
+							return loginCustomer;
+						} else {
+							System.out.println("Deine Daten waren leider falsch.");
+						}
 					}
+				} else {
+					System.out.println("Serverprobleme. (Logindatei wurde nicht gefunden)");
 				}
-			} else {
-				System.out.println("Serverprobleme. (Logindatei wurde nicht gefunden)");
+				break;
+
+			case "2":
+				System.out.println("Dein Benutzername (Registrierung): ");
+				regBenutzername = sc.nextLine();
+				System.out.println("Dein Passwort (Registrierung): ");
+				regPasswort = sc.nextLine();
+				loginCustomer = new Customer(regBenutzername, regPasswort);
+				break;
+
+			default:
+				System.out.println("------------------------------------------------");
+				System.out.println("Bitte gebe eine gültige Zahl ein.");
+				System.out.println("------------------------------------------------");
+				break;
 			}
-			break;
-
-		case "2":
-			System.out.println("Dein Benutzername (Registrierung): ");
-			regBenutzername = sc.nextLine();
-			System.out.println("Dein Passwort (Registrierung): ");
-			regPasswort = sc.nextLine();
-			loginCustomer = new Customer(regBenutzername, regPasswort);
-			break;
-
 		}
 
 		writeLogin(loginCustomer);
@@ -398,53 +424,72 @@ public class Main {
 		String regBenutzername;
 		String regPasswort;
 		Boolean loginLoop = true;
+		Boolean aktionLoop = true;
 		int businessSize;
 
 		// Auslesung von Inputs des Users
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
+		while (aktionLoop) {
+			System.out.println("Willkommen im Anmeldeprozess! Was möchtest du tun?");
+			System.out.println("1: Anmelden | 2: Registrieren");
 
-		System.out.println("Willkommen im Anmeldeprozess! Was möchtest du tun?");
-		System.out.println("1: Anmelden | 2: Registrieren");
+			aktion = sc.nextLine();
 
-		aktion = sc.nextLine();
+			switch (aktion) {
+			case "1":
+				aktionLoop = false;
+				File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\LoginDetailsBusiness.ser");
+				if (checkFile.exists()) {
+					while (loginLoop) {
 
-		switch (aktion) {
-		case "1":
-			File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\LoginDetails.ser");
-			if (checkFile.exists()) {
-				while (loginLoop) {
+						loginCustomer = readLoginBusiness();
+						System.out.println("Dein Benutzername: ");
+						benutzername = sc.nextLine();
+						System.out.println("Dein Passwort: ");
+						passwort = sc.nextLine();
 
-					loginCustomer = readLoginBusiness();
-					System.out.println("Dein Benutzername: ");
-					benutzername = sc.nextLine();
-					System.out.println("Dein Passwort: ");
-					passwort = sc.nextLine();
+						if (benutzername.equals(loginCustomer.getCustomerName())
+								&& passwort.equals(loginCustomer.getPassword())) {
+							return loginCustomer;
+						} else {
+							System.out.println("Deine Daten waren leider falsch.");
+							System.out.println("1: Erneut versuchen | 2: Zurück");
 
-					if (benutzername.equals(loginCustomer.getCustomerName())
-							&& passwort.equals(loginCustomer.getPassword())) {
-						return loginCustomer;
-					} else {
-						System.out.println("Deine Daten waren leider falsch.");
+							aktion = sc.nextLine();
+
+							if (aktion.equals("1")) {
+
+							} else {
+								aktionLoop = true;
+							}
+
+						}
 					}
+				} else {
+					System.out.println("Serverprobleme. (Logindatei wurde nicht gefunden)");
 				}
-			} else {
-				System.out.println("Serverprobleme. (Logindatei wurde nicht gefunden)");
+				break;
+
+			// Registrierung BusinessCustomer
+			case "2":
+				aktionLoop = false;
+				System.out.println("Dein Benutzername (Registrierung): ");
+				regBenutzername = sc.nextLine();
+				System.out.println("Dein Passwort (Registrierung): ");
+				regPasswort = sc.nextLine();
+				System.out.println("Deine Unternehmensgröße 1-3");
+				businessSize = sc.nextInt();
+				loginCustomer = new BusinessCustomer(regBenutzername, regPasswort, businessSize);
+				break;
+
+			default:
+				System.out.println("------------------------------------------------");
+				System.out.println("Bitte gebe eine gültige Zahl ein.");
+				System.out.println("------------------------------------------------");
+				break;
 			}
-			break;
-		case "2":
-			System.out.println("Dein Benutzername (Registrierung): ");
-			regBenutzername = sc.nextLine();
-			System.out.println("Dein Passwort (Registrierung): ");
-			regPasswort = sc.nextLine();
-			System.out.println("Deine Unternehmensgröße 1-3");
-			businessSize = sc.nextInt();
-			loginCustomer = new BusinessCustomer(regBenutzername, regPasswort, businessSize);
-			break;
-
 		}
-
-		// loginCustomer = new Customer(regBenutzername, regPasswort);
 
 		writeLogin(loginCustomer);
 
@@ -458,7 +503,8 @@ public class Main {
 		BusinessCustomer returnCustomer = new BusinessCustomer("Empty", "Empty", 1);
 
 		try {
-			FileInputStream fis = new FileInputStream(System.getProperty("user.home") + "\\Desktop\\LoginDetails.ser");
+			FileInputStream fis = new FileInputStream(
+					System.getProperty("user.home") + "\\Desktop\\LoginDetailsBusiness.ser");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			returnCustomer = (BusinessCustomer) ois.readObject();
 			ois.close();
@@ -478,7 +524,7 @@ public class Main {
 	public static void writeLoginBusiness(BusinessCustomer customer) {
 		try {
 			FileOutputStream fos = new FileOutputStream(
-					System.getProperty("user.home") + "\\Desktop\\LoginDetails.ser");
+					System.getProperty("user.home") + "\\Desktop\\LoginDetailsBusiness.ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(customer);
 			oos.close();
