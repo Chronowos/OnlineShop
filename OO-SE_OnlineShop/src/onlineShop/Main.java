@@ -99,7 +99,7 @@ public class Main {
 
 					// Produkt in den Warenkorb hinzufügen
 					case "1":
-						while (putProductInCart) {
+						while (putProductInCart == true) {
 							System.out.println(line);
 							System.out.println(
 									"Welches Produkt möchtest du in den Warenkorb hinzufügen? Bitte gib die Artikelnummer an!");
@@ -121,12 +121,13 @@ public class Main {
 							}
 							saveCatalogue(prodArray);
 						}
+						putProductInCart = true;
 						break;
 
 					// Sortiment sortieren
 					case "2":
 
-						while (sortProducts) {
+						while (sortProducts == true) {
 							System.out.println(
 									"Wie soll sortiert werden?\n" + "1: Preis aufsteigend\n" + "2: Preis absteigend");
 							System.out.println(line);
