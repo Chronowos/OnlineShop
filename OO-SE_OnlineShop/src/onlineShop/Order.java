@@ -1,7 +1,13 @@
 package onlineShop;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
 
 public class Order {
 
@@ -16,36 +22,40 @@ public class Order {
 		String adresse;
 		String aktion;
 		String bank;
+		String pdf_path;
 		long bankCode;
 		long accountNumber;
 		long cardNumber;
+		double cartPrice;
 		int expDate;
 		int cvv;
 
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 
+		cartPrice = this.shoppingCart.getTotalCost();
+
 		System.out.println("------------------------------------------------");
 		System.out.println("Bestellung eingegangen.");
 		System.out.println("------------------------------------------------");
 		System.out.println("Anzahl an Produkten im Warenkorb: " + this.shoppingCart.getTotalItems() + "\nGesamtkosten: "
-				+ this.shoppingCart.getTotalCost());
+				+ cartPrice);
 		System.out.println("------------------------------------------------");
 		System.out.println("Gebe zu erst deine Lieferadresse an: \n");
 		adresse = sc.nextLine();
 
-		System.out.println("Wie möchtest du bezahlen? \n 1: Bank | 2: Kreditkarte");
+		System.out.println("Wie möchtest du bezahlen? \n1: Bank | 2: Kreditkarte");
 
 		aktion = sc.nextLine();
 
 		switch (aktion) {
 		case "1":
 
-			System.out.println("Bankname:\n");
+			System.out.println("Bankname:");
 			bank = sc.nextLine();
-			System.out.println("Bankleitzahl:\n");
+			System.out.println("Bankleitzahl:");
 			bankCode = sc.nextLong();
-			System.out.println("Kontonummer:\n");
+			System.out.println("Kontonummer:");
 			accountNumber = sc.nextLong();
 
 			BankAccount myBank = new BankAccount(bank, bankCode, accountNumber,
@@ -53,9 +63,27 @@ public class Order {
 
 			myBank.payMoneyBank(this.shoppingCart.getTotalCost());
 
-			System.out.println(
-					"Erfolg! Du hast gerade " + this.shoppingCart.getTotalCost() + " € bezahlt.\nLieferadresse: "
-							+ adresse + "\nDu hast noch " + myBank.getBankBalance() + "€ zur Verfügung.");
+			// PDF ERSTELLUNG ANFANG
+			try {
+				pdf_path = System.getProperty("user.home") + "\\Desktop\\Quittung.pdf";
+
+				Document myDoc = new Document();
+				PdfWriter.getInstance(myDoc, new FileOutputStream(pdf_path));
+
+				myDoc.open();
+
+				myDoc.close();
+
+			} catch (FileNotFoundException | DocumentException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Fehler PDF-Erstellung");
+				e.printStackTrace();
+			}
+
+			// PDF ERSTELLUNG ENDE
+
+			System.out.println("Erfolg! Du hast gerade " + cartPrice + " € bezahlt.\nLieferadresse: " + adresse
+					+ "\nDu hast noch " + myBank.getBankBalance() + "€ zur Verfügung.");
 			break;
 
 		case "2":
@@ -141,9 +169,8 @@ public class Order {
 
 			myBank.payMoneyBank(this.shoppingCart.getTotalCost());
 
-			System.out.println(
-					"Erfolg! Du hast gerade " + discounted + " € bezahlt.\nLieferadresse: "
-							+ adresse + "\nDu hast noch " + myBank.getBankBalance() + "€ zur Verfügung.");
+			System.out.println("Erfolg! Du hast gerade " + discounted + " € bezahlt.\nLieferadresse: " + adresse
+					+ "\nDu hast noch " + myBank.getBankBalance() + "€ zur Verfügung.");
 			break;
 
 		// Bezahlung per Kreditkarte

@@ -9,11 +9,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.*;
 
+import com.itextpdf.text.DocumentException;
+
 public class Main {
 
 	public static String isBusiness;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, DocumentException {
 
 		// Erstellung Einkaufswagen- und Produktkatalog-Objekt
 		ShoppingCart myShopCart = new ShoppingCart();
@@ -114,7 +116,7 @@ public class Main {
 								putProductInCart = false;
 							} catch (ArrayIndexOutOfBoundsException | InputMismatchException e) {
 								System.out.println("------------------------------------------------");
-								System.out.println("Ungültige Produktnummer. Versuche es bitte erneut");
+								System.out.println("Ungültige Produktnummer. Versuche es bitte erneut.");
 								System.out.println("------------------------------------------------\n");
 							}
 							saveCatalogue(prodArray);
@@ -199,9 +201,9 @@ public class Main {
 								myShopCart.get(productNumberInCart).setQuantity(newQuantity);
 
 								changeProductInCart = false;
-							} catch (InputMismatchException e) {
+							} catch (IndexOutOfBoundsException | InputMismatchException e) {
 								System.out.println("------------------------------------------------");
-								System.out.println("Gebe nur die numerische Produktposition und keinen Text ein.");
+								System.out.println("Gebe bitte eine gültige Produktposition an.");
 								System.out.println("------------------------------------------------\n");
 								sc.next();
 							}
