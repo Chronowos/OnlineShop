@@ -46,10 +46,6 @@ public class BankAccount {
 		this.moneyAmount = moneyAmount;
 	}
 
-	public void payMoneyBank(double amount) {
-		this.setBankBalance(getBankBalance() - amount);
-	}
-
 	@Override
 	public String toString() {
 		return "BankAccount [bank=" + bank + ", bankCode=" + bankCode + ", accountNumber=" + accountNumber
