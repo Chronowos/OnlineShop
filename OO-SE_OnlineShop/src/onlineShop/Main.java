@@ -177,13 +177,20 @@ public class Main {
 					case "1":
 						if (myShopCart.hasItems() == false) {
 							System.out.println("Keine Produkte im Warenkorb.");
-							shoppingCartRunning = true;
 						} else {
 							Order myOrder = new Order(myShopCart);
 							if (Main.isBusiness.equals("1")) {
 								myOrder.completeOrder(customer1);
+								System.out.println("\n------------------------------------------------");
+								System.out.println("Wir bedanken uns für deinen Einkauf - auf Wiedersehen!");
+								System.out.println("------------------------------------------------");
+								isRunning = false;
 							} else {
 								myOrder.completeOrderBusiness(businessCustomer1);
+								System.out.println("\n------------------------------------------------");
+								System.out.println("Wir bedanken uns für deinen Einkauf - auf Wiedersehen!");
+								System.out.println("------------------------------------------------");
+								isRunning = false;
 							}
 							shoppingCartRunning = false;
 
@@ -194,12 +201,10 @@ public class Main {
 					case "2":
 						if (myShopCart.hasItems() == false) {
 							System.out.println("Keine Produkte im Warenkorb.");
-							shoppingCartRunning = true;
 						} else {
 							while (changeProductInCart) {
 								System.out.println(
 										"Welches Produkt soll bearbeitet werden? Schreibe die Produktposition!");
-
 								try {
 									productNumberInCart = sc.nextInt();
 									// Produkt mit der Nummer im Warenkorb finden
@@ -216,7 +221,8 @@ public class Main {
 									changeProductInCart = false;
 								} catch (IndexOutOfBoundsException | InputMismatchException e) {
 									System.out.println("------------------------------------------------");
-									System.out.println("Gebe bitte eine gültige Produktposition an.");
+									System.out.println(
+											"Gebe bitte eine gültige Produktposition an. Drücke Enter, um den Vorgang erneut zu starten.");
 									System.out.println("------------------------------------------------\n");
 									sc.next();
 								}

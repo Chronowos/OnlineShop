@@ -174,6 +174,7 @@ public class Order {
 
 					System.out.println("Erfolg! Du hast gerade " + discounted + " € bezahlt.\nLieferadresse: " + adresse
 							+ "\nDu hast noch " + myBank.getBankBalance() + "€ zur Verfügung.");
+					buyLoop = false;
 				} catch (InputMismatchException e) {
 					System.out.println(e);
 				}
@@ -199,6 +200,7 @@ public class Order {
 
 					System.out.println("Erfolg! Du hast gerade " + cartPrice + " € bezahlt.\nLieferadresse: " + adresse
 							+ "\nDu hast noch " + myCard.getCardBalance() + "€ zur Verfügung.");
+					buyLoop = false;
 				} catch (InputMismatchException e) {
 					System.out.println(e);
 				}

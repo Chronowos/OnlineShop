@@ -29,10 +29,12 @@ public class ShoppingCart {
 	private static Font timesFontSmall = new Font(Font.FontFamily.TIMES_ROMAN, 13, Font.NORMAL);
 	private static Font timesFontBold = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.BOLD);
 
+	// Konstruktor
 	public ShoppingCart() {
 
 	}
 
+	// Produkt hinzufügen
 	public void addProductToCart(Products product, int amount) {
 
 		int amountBefore = product.getQuantity();
@@ -46,6 +48,7 @@ public class ShoppingCart {
 		}
 	}
 
+	// Auflistung printen
 	public void printProducts() {
 		String outputText = String.format("%-10s %-10s %-20s %-10s %-15s", "Position", "Nummer", "Name", "Anzahl",
 				"Preis");
@@ -60,6 +63,7 @@ public class ShoppingCart {
 		totalPrice = 0.0;
 	}
 
+	// Gesamtkosten errechnen
 	public double getTotalCost() {
 		for (Products myProducts : myShoppingCart) {
 			totalPrice = totalPrice + (myProducts.getQuantity() * myProducts.getBasePrice());
@@ -67,31 +71,33 @@ public class ShoppingCart {
 		return totalPrice;
 	}
 
+	// Enthält der Warenkorb Produkte?
 	public boolean hasItems() {
-		if(myShoppingCart.size() == 0) {
+		if (myShoppingCart.size() == 0) {
 			return false;
 		}
 		return true;
 	}
-	
-	// Produktnummer
+
+	// Sortierung nach Produktnummer
 	public void sortAfterNumber() {
 		ProductNumberComparator numComparator = new ProductNumberComparator();
 		Collections.sort(myShoppingCart, numComparator);
 	}
 
-	// Absteigend
+	// Absteigende Sortierung
 	public void sortAfterPriceDesc() {
 		ProductPriceComparatorDescending descComparator = new ProductPriceComparatorDescending();
 		Collections.sort(myShoppingCart, descComparator);
 	}
 
-	// Aufsteigend
+	// Aufsteigende Sortierung
 	public void sortAfterPriceAsc() {
 		ProductPriceComparatorAscending ascComparator = new ProductPriceComparatorAscending();
 		Collections.sort(myShoppingCart, ascComparator);
 	}
 
+	// Gesamtanzahl an Produkten
 	public int getTotalItems() {
 		return myShoppingCart.size();
 	}
@@ -102,6 +108,7 @@ public class ShoppingCart {
 		return returnProduct;
 	}
 
+	// Quittung-Bank
 	public void createPDFBank(String adresse, String bank, long BankCode, long accountNumber) {
 
 		try {
@@ -182,11 +189,11 @@ public class ShoppingCart {
 			myDoc.close();
 
 		} catch (DocumentException | IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Fehler PDF-Erstellung");
 		}
 	}
 
+	// Quittung-Karte
 	public void createPDFCard(String adresse, long cardNumber, int cvv) {
 		try {
 
@@ -262,11 +269,9 @@ public class ShoppingCart {
 			myDoc.close();
 
 		} catch (DocumentException | IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Fehler PDF-Erstellung");
 		}
 
 	}
-
 
 }
