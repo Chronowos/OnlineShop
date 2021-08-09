@@ -58,8 +58,6 @@ public class Order {
 					BankAccount myBank = new BankAccount(bank, bankCode, accountNumber,
 							Math.round(ThreadLocalRandom.current().nextDouble(2000.00, 10000.00)));
 
-					myBank.payMoneyBank(this.shoppingCart.getTotalCost());
-
 					System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
 					shoppingCart.createPDFBank(adresse, bank, bankCode, accountNumber);
 
@@ -166,8 +164,6 @@ public class Order {
 
 					BankAccount myBank = new BankAccount(bank, bankCode, accountNumber,
 							Math.round(ThreadLocalRandom.current().nextDouble(2000.00, 10000.00)));
-
-					myBank.payMoneyBank(this.shoppingCart.getTotalCost());
 
 					System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
 					shoppingCart.createPDFBank(adresse, bank, bankCode, accountNumber);
