@@ -54,7 +54,7 @@ public class CreditCard {
 	@Override
 	public String toString() {
 		return "CreditCard [cardNumber=" + cardNumber + ", expirationYear=" + expirationYear + ", cvv=" + cvv
-				+ ", moneyAmount=" + moneyAmount;
+				+ ", moneyAmount=" + moneyAmount + "]";
 	}
 
 }

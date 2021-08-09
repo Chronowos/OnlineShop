@@ -10,6 +10,8 @@ public class BusinessCustomer extends Customer implements Serializable {
 		super(customerName, password);
 		if (BusinessSize > 3 || BusinessSize < 1) {
 			System.out.println("Zu groß oder zu klein");
+			throw new IllegalArgumentException(
+					"BusinessSize / Unternehmensgröße muss zwischen 1-3 liegen. Gefunden wurde aber: " + BusinessSize);
 		} else {
 			this.BusinessSize = BusinessSize;
 		}
