@@ -501,7 +501,6 @@ public class Main {
 
 			switch (aktion) {
 			case "1":
-				aktionLoop = false;
 				File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\LoginDetailsBusiness.ser");
 				if (checkFile.exists()) {
 					while (loginLoop) {
@@ -531,6 +530,7 @@ public class Main {
 					}
 				} else {
 					System.out.println("Serverprobleme. (Logindatei wurde nicht gefunden)");
+					// System.exit(0);
 				}
 				break;
 
