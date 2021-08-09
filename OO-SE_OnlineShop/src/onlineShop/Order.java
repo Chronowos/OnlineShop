@@ -1,5 +1,6 @@
 package onlineShop;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -18,6 +19,7 @@ public class Order {
 		String bank;
 		long bankCode;
 		long accountNumber;
+		boolean buyLoop = true;
 		long cardNumber;
 		double cartPrice;
 		int expDate;
@@ -37,57 +39,67 @@ public class Order {
 		System.out.println("Gebe zu erst deine Lieferadresse an: \n");
 		adresse = sc.nextLine();
 
-		System.out.println("Wie möchtest du bezahlen? \n1: Bank | 2: Kreditkarte");
+		while (buyLoop) {
+			System.out.println("Wie möchtest du bezahlen? \n1: Bank | 2: Kreditkarte");
 
-		aktion = sc.nextLine();
+			aktion = sc.nextLine();
 
-		switch (aktion) {
-		case "1":
+			switch (aktion) {
+			case "1":
+				buyLoop = false;
+				try {
+					System.out.println("Bankname:");
+					bank = sc.nextLine();
+					System.out.println("Bankleitzahl:");
+					bankCode = sc.nextLong();
+					System.out.println("Kontonummer:");
+					accountNumber = sc.nextLong();
 
-			System.out.println("Bankname:");
-			bank = sc.nextLine();
-			System.out.println("Bankleitzahl:");
-			bankCode = sc.nextLong();
-			System.out.println("Kontonummer:");
-			accountNumber = sc.nextLong();
+					BankAccount myBank = new BankAccount(bank, bankCode, accountNumber,
+							Math.round(ThreadLocalRandom.current().nextDouble(2000.00, 10000.00)));
 
-			BankAccount myBank = new BankAccount(bank, bankCode, accountNumber,
-					Math.round(ThreadLocalRandom.current().nextDouble(2000.00, 10000.00)));
+					myBank.payMoneyBank(this.shoppingCart.getTotalCost());
 
-			myBank.payMoneyBank(this.shoppingCart.getTotalCost());
+					System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
+					shoppingCart.createPDFBank(adresse, bank, bankCode, accountNumber);
 
-			System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
-			shoppingCart.createPDFBank(adresse, bank, bankCode, accountNumber);
+					System.out.println("Erfolg! Du hast gerade " + cartPrice + " € bezahlt.\nLieferadresse: " + adresse
+							+ "\nDu hast noch " + myBank.getBankBalance() + "€ zur Verfügung.");
+				} catch (InputMismatchException e) {
+					System.out.println(e);
+				}
+				break;
 
-			System.out.println("Erfolg! Du hast gerade " + cartPrice + " € bezahlt.\nLieferadresse: " + adresse
-					+ "\nDu hast noch " + myBank.getBankBalance() + "€ zur Verfügung.");
-			break;
+			case "2":
+				buyLoop = false;
+				try {
+					System.out.println("Kartennummer:\n");
+					cardNumber = sc.nextLong();
+					System.out.println("Verfallsdatum (DDMMYYYY):\n");
+					expDate = sc.nextInt();
+					System.out.println("CVV-Code (dreistellig):\n");
+					cvv = sc.nextInt();
 
-		case "2":
+					CreditCard myCard = new CreditCard(cardNumber, expDate, cvv,
+							Math.round(ThreadLocalRandom.current().nextDouble(2000.00, 10000.00)));
 
-			System.out.println("Kartennummer:\n");
-			cardNumber = sc.nextLong();
-			System.out.println("Verfallsdatum (DDMMYYYY):\n");
-			expDate = sc.nextInt();
-			System.out.println("CVV-Code (dreistellig):\n");
-			cvv = sc.nextInt();
+					myCard.payMoneyCard(this.shoppingCart.getTotalCost());
 
-			CreditCard myCard = new CreditCard(cardNumber, expDate, cvv,
-					Math.round(ThreadLocalRandom.current().nextDouble(2000.00, 10000.00)));
+					System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
+					shoppingCart.createPDFCard(adresse, cardNumber, cvv);
 
-			myCard.payMoneyCard(this.shoppingCart.getTotalCost());
+					System.out.println("Erfolg! Du hast gerade " + cartPrice + " € bezahlt.\nLieferadresse: " + adresse
+							+ "\nDu hast noch " + myCard.getCardBalance() + "€ zur Verfügung.");
+				} catch (InputMismatchException e) {
+					System.out.println(e);
+				}
+				break;
+			default:
+				buyLoop = true;
+				System.out.println("Bitte gebe eine gültige Zahl ein.");
+				break;
 
-			System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
-			shoppingCart.createPDFCard(adresse, cardNumber, cvv);
-
-			System.out.println("Erfolg! Du hast gerade " + cartPrice + " € bezahlt.\nLieferadresse: " + adresse
-					+ "\nDu hast noch " + myCard.getCardBalance() + "€ zur Verfügung.");
-
-			break;
-		default:
-			System.out.println("Bitte gebe eine gültige Zahl ein.");
-			break;
-
+			}
 		}
 
 	}
@@ -102,6 +114,7 @@ public class Order {
 		long accountNumber;
 		long cardNumber;
 		double discounted;
+		boolean buyLoop = true;
 		double cartPrice;
 		int expDate;
 		int cvv;
@@ -134,61 +147,70 @@ public class Order {
 		System.out.println("Gebe zu erst deine Lieferadresse an: \n");
 		adresse = sc.nextLine();
 
-		System.out.println("Wie möchtest du bezahlen? \n 1: Bank | 2: Kreditkarte");
+		while (buyLoop) {
+			System.out.println("Wie möchtest du bezahlen? \n 1: Bank | 2: Kreditkarte");
 
-		aktion = sc.nextLine();
+			aktion = sc.nextLine();
 
-		switch (aktion) {
+			switch (aktion) {
 
-		// Bezahlung per Bank
-		case "1":
+			// Bezahlung per Bank
+			case "1":
+				try {
+					System.out.println("Bankname:\n");
+					bank = sc.nextLine();
+					System.out.println("Bankleitzahl:\n");
+					bankCode = sc.nextLong();
+					System.out.println("Kontonummer:\n");
+					accountNumber = sc.nextLong();
 
-			System.out.println("Bankname:\n");
-			bank = sc.nextLine();
-			System.out.println("Bankleitzahl:\n");
-			bankCode = sc.nextLong();
-			System.out.println("Kontonummer:\n");
-			accountNumber = sc.nextLong();
+					BankAccount myBank = new BankAccount(bank, bankCode, accountNumber,
+							Math.round(ThreadLocalRandom.current().nextDouble(2000.00, 10000.00)));
 
-			BankAccount myBank = new BankAccount(bank, bankCode, accountNumber,
-					Math.round(ThreadLocalRandom.current().nextDouble(2000.00, 10000.00)));
+					myBank.payMoneyBank(this.shoppingCart.getTotalCost());
 
-			myBank.payMoneyBank(this.shoppingCart.getTotalCost());
+					System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
+					shoppingCart.createPDFBank(adresse, bank, bankCode, accountNumber);
 
-			System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
-			shoppingCart.createPDFBank(adresse, bank, bankCode, accountNumber);
+					System.out.println("Erfolg! Du hast gerade " + discounted + " € bezahlt.\nLieferadresse: " + adresse
+							+ "\nDu hast noch " + myBank.getBankBalance() + "€ zur Verfügung.");
+				} catch (InputMismatchException e) {
+					System.out.println(e);
+				}
+				break;
 
-			System.out.println("Erfolg! Du hast gerade " + discounted + " € bezahlt.\nLieferadresse: " + adresse
-					+ "\nDu hast noch " + myBank.getBankBalance() + "€ zur Verfügung.");
-			break;
+			// Bezahlung per Kreditkarte
+			case "2":
+				try {
+					System.out.println("Kartennummer:\n");
+					cardNumber = sc.nextLong();
+					System.out.println("Verfallsdatum (DDMMYYYY):\n");
+					expDate = sc.nextInt();
+					System.out.println("CVV-Code (dreistellig):\n");
+					cvv = sc.nextInt();
 
-		// Bezahlung per Kreditkarte
-		case "2":
+					CreditCard myCard = new CreditCard(cardNumber, expDate, cvv,
+							Math.round(ThreadLocalRandom.current().nextDouble(2000.00, 10000.00)));
 
-			System.out.println("Kartennummer:\n");
-			cardNumber = sc.nextLong();
-			System.out.println("Verfallsdatum (DDMMYYYY):\n");
-			expDate = sc.nextInt();
-			System.out.println("CVV-Code (dreistellig):\n");
-			cvv = sc.nextInt();
+					myCard.payMoneyCard(this.shoppingCart.getTotalCost());
 
-			CreditCard myCard = new CreditCard(cardNumber, expDate, cvv,
-					Math.round(ThreadLocalRandom.current().nextDouble(2000.00, 10000.00)));
+					System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
+					shoppingCart.createPDFCard(adresse, cardNumber, cvv);
 
-			myCard.payMoneyCard(this.shoppingCart.getTotalCost());
+					System.out.println("Erfolg! Du hast gerade " + cartPrice + " € bezahlt.\nLieferadresse: " + adresse
+							+ "\nDu hast noch " + myCard.getCardBalance() + "€ zur Verfügung.");
+				} catch (InputMismatchException e) {
+					System.out.println(e);
+				}
 
-			System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
-			shoppingCart.createPDFCard(adresse, cardNumber, cvv);
+				break;
 
-			System.out.println("Erfolg! Du hast gerade " + cartPrice + " € bezahlt.\nLieferadresse: " + adresse
-					+ "\nDu hast noch " + myCard.getCardBalance() + "€ zur Verfügung.");
-
-			break;
-
-		// Falsche Eingabe
-		default:
-			System.out.println("Bitte gebe eine gültige Zahl ein.");
-			break;
+			// Falsche Eingabe
+			default:
+				buyLoop = true;
+				System.out.println("Bitte gebe eine gültige Zahl ein.");
+				break;
+			}
 		}
 
 	}

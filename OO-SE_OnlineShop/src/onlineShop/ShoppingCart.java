@@ -67,6 +67,13 @@ public class ShoppingCart {
 		return totalPrice;
 	}
 
+	public boolean hasItems() {
+		if(myShoppingCart.size() == 0) {
+			return false;
+		}
+		return true;
+	}
+	
 	// Produktnummer
 	public void sortAfterNumber() {
 		ProductNumberComparator numComparator = new ProductNumberComparator();
@@ -140,28 +147,31 @@ public class ShoppingCart {
 			myTable.addCell(c1);
 
 			for (Products myProducts : myShoppingCart) {
+
 				PdfPCell e1 = new PdfPCell(
 						new Paragraph(String.format("%d", myProducts.getProductNumber()), timesFontSmall));
 				e1.setHorizontalAlignment(Element.ALIGN_CENTER);
-				c1.setVerticalAlignment(Element.ALIGN_CENTER);
+				e1.setVerticalAlignment(Element.ALIGN_CENTER);
 				myTable.addCell(e1);
 
 				e1 = new PdfPCell(new Paragraph(myProducts.getProductName(), timesFontSmall));
 				e1.setHorizontalAlignment(Element.ALIGN_CENTER);
-				c1.setVerticalAlignment(Element.ALIGN_CENTER);
+				e1.setVerticalAlignment(Element.ALIGN_CENTER);
 				myTable.addCell(e1);
 
 				e1 = new PdfPCell(new Paragraph(String.format("%d", myProducts.getQuantity()), timesFontSmall));
 				e1.setHorizontalAlignment(Element.ALIGN_CENTER);
-				c1.setVerticalAlignment(Element.ALIGN_CENTER);
+				e1.setVerticalAlignment(Element.ALIGN_CENTER);
 				myTable.addCell(e1);
 
 				e1 = new PdfPCell(new Paragraph(myProducts.getBasePrice() + " €", timesFontSmall));
 				e1.setHorizontalAlignment(Element.ALIGN_CENTER);
-				c1.setVerticalAlignment(Element.ALIGN_CENTER);
+				e1.setVerticalAlignment(Element.ALIGN_CENTER);
 				myTable.addCell(e1);
 			}
+
 			myDoc.add(myTable);
+			myDoc.add(new Paragraph("\nGesamtkosten: " + getTotalCost() + "\n", timesFont));
 
 			myDoc.add(new Paragraph("\nDie Lieferung und Abbuchung erfolgt auf folgende Daten:\n", timesFont));
 			myDoc.add(new Paragraph("\nAdresse: " + adresse, timesFontSmall));
@@ -257,4 +267,6 @@ public class ShoppingCart {
 		}
 
 	}
+
+
 }

@@ -116,8 +116,10 @@ public class Main {
 								putProductInCart = false;
 							} catch (ArrayIndexOutOfBoundsException | InputMismatchException e) {
 								System.out.println("------------------------------------------------");
-								System.out.println("Ungültige Produktnummer. Versuche es bitte erneut.");
+								System.out.println(
+										"Ungültige Produktnummer. Versuche es bitte erneut. Drücke Enter, um den Vorgang erneut zu starten.");
 								System.out.println("------------------------------------------------\n");
+								sc.next();
 							}
 							saveCatalogue(prodArray);
 						}
@@ -173,43 +175,55 @@ public class Main {
 
 					// Warenkorb kaufen
 					case "1":
-						Order myOrder = new Order(myShopCart);
-						if (Main.isBusiness.equals("1")) {
-							myOrder.completeOrder(customer1);
+						if (myShopCart.hasItems() == false) {
+							System.out.println("Keine Produkte im Warenkorb.");
+							shoppingCartRunning = true;
 						} else {
-							myOrder.completeOrderBusiness(businessCustomer1);
+							Order myOrder = new Order(myShopCart);
+							if (Main.isBusiness.equals("1")) {
+								myOrder.completeOrder(customer1);
+							} else {
+								myOrder.completeOrderBusiness(businessCustomer1);
+							}
+							shoppingCartRunning = false;
+
 						}
-						shoppingCartRunning = false;
 						break;
 
 					// Warenkorb bearbeiten
 					case "2":
+						if (myShopCart.hasItems() == false) {
+							System.out.println("Keine Produkte im Warenkorb.");
+							shoppingCartRunning = true;
+						} else {
+							while (changeProductInCart) {
+								System.out.println(
+										"Welches Produkt soll bearbeitet werden? Schreibe die Produktposition!");
 
-						while (changeProductInCart) {
-							System.out.println("Welches Produkt soll bearbeitet werden? Schreibe die Produktposition!");
+								try {
+									productNumberInCart = sc.nextInt();
+									// Produkt mit der Nummer im Warenkorb finden
+									changeProduct = myShopCart.get(productNumberInCart);
 
-							try {
-								productNumberInCart = sc.nextInt();
-								// Produkt mit der Nummer im Warenkorb finden
-								changeProduct = myShopCart.get(productNumberInCart);
+									System.out.println(
+											"Du hast momentan " + myShopCart.get(productNumberInCart).getQuantity()
+													+ "Elemente in deinem Warenkorb.");
+									System.out.println("Wie viele möchtest du jetzt?");
+									newQuantity = sc.nextInt();
 
-								System.out
-										.println("Du hast momentan " + myShopCart.get(productNumberInCart).getQuantity()
-												+ "Elemente in deinem Warenkorb.");
-								System.out.println("Wie viele möchtest du jetzt?");
-								newQuantity = sc.nextInt();
+									myShopCart.get(productNumberInCart).setQuantity(newQuantity);
 
-								myShopCart.get(productNumberInCart).setQuantity(newQuantity);
-
-								changeProductInCart = false;
-							} catch (IndexOutOfBoundsException | InputMismatchException e) {
-								System.out.println("------------------------------------------------");
-								System.out.println("Gebe bitte eine gültige Produktposition an.");
-								System.out.println("------------------------------------------------\n");
-								sc.next();
+									changeProductInCart = false;
+								} catch (IndexOutOfBoundsException | InputMismatchException e) {
+									System.out.println("------------------------------------------------");
+									System.out.println("Gebe bitte eine gültige Produktposition an.");
+									System.out.println("------------------------------------------------\n");
+									sc.next();
+								}
 							}
+							shoppingCartRunning = false;
 						}
-						shoppingCartRunning = false;
+
 						break;
 
 					// Zurück
@@ -244,7 +258,7 @@ public class Main {
 
 	}
 
-	// Suche Produkt anhand Produktnummer, benötigt, um Produkte anhand ihrer Nummer
+	// Suche Produkt anhand Produktnummer. Benötigt, um Produkte anhand ihrer Nummer
 	// in den Warenkorb zu legen
 	public static int findPosInArray(Products[] myArray, long pNumber) {
 
@@ -263,24 +277,34 @@ public class Main {
 		Products[] prodArray = new Products[10];
 		Products[] serArray = new Products[10];
 		String input;
+		Boolean inputLoop = true;
 
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 
 		File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\ProductCatalogue.ser");
 
-		if (checkFile.exists()) {
+		while (inputLoop) {
+			if (checkFile.exists()) {
 
-			System.out.println("Ein Warenkorb wurde als Datei gefunden, möchtest du diesen nutzen? (1-2)\n" + "1: Ja\n"
-					+ "2: Nein");
-			input = sc.nextLine();
-			if (input.equals("1")) {
-				serArray = loadCatalogue();
-				return serArray;
-			} else {
-				System.out.println("Standard Produktkatalog wurde geladen.");
+				System.out.println("Ein Warenkorb wurde als Datei gefunden, möchtest du diesen nutzen? (1-2)\n"
+						+ "1: Ja\n" + "2: Nein");
+				input = sc.nextLine();
+				if (input.equals("1")) {
+					inputLoop = false;
+					serArray = loadCatalogue();
+					return serArray;
+				} else if (input.equals("2")) {
+					inputLoop = false;
+					System.out.println("Standard Produktkatalog wurde geladen.");
+				} else {
+					System.out.println("------------------------------------------------");
+					System.out.println("Gebe bitte eine gültige Zahl an.");
+					System.out.println("------------------------------------------------\n");
+					inputLoop = true;
+				}
+
 			}
-
 		}
 
 		// Produkt-Objekte instanziieren und in einem Array speichern, für einfachen
