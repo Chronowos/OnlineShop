@@ -115,7 +115,7 @@ public class ShoppingCart {
 
 			float docWidth;
 			String pdf_path = System.getProperty("user.home") + "\\Desktop\\Quittung.pdf";
-			Image my_img = Image.getInstance(System.getProperty("user.home") + "\\Desktop\\shopbild.png");
+			Image my_img = Image.getInstance("res\\shopbild.png");
 			Document myDoc = new Document();
 
 			docWidth = myDoc.getPageSize().getWidth() - myDoc.leftMargin() - myDoc.rightMargin();
@@ -199,7 +199,7 @@ public class ShoppingCart {
 
 			float docWidth;
 			String pdf_path = System.getProperty("user.home") + "\\Desktop\\Quittung.pdf";
-			Image my_img = Image.getInstance(System.getProperty("user.home") + "\\Desktop\\shopbild.png");
+			Image my_img = Image.getInstance("res\\shopbild.png");
 			Document myDoc = new Document();
 
 			docWidth = myDoc.getPageSize().getWidth() - myDoc.leftMargin() - myDoc.rightMargin();

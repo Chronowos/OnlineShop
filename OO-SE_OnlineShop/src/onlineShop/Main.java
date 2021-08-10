@@ -288,7 +288,7 @@ public class Main {
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 
-		File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\ProductCatalogue.ser");
+		File checkFile = new File("logDataFiles\\ProductCatalogue.ser");
 
 		while (inputLoop) {
 			if (checkFile.exists()) {
@@ -311,6 +311,7 @@ public class Main {
 				}
 
 			}
+			inputLoop = false;
 		}
 
 		// Produkt-Objekte instanziieren und in einem Array speichern, für einfachen
@@ -334,8 +335,7 @@ public class Main {
 	public static void saveCatalogue(Products[] prodArray) {
 
 		try {
-			FileOutputStream fos = new FileOutputStream(
-					System.getProperty("user.home") + "\\Desktop\\ProductCatalogue.ser");
+			FileOutputStream fos = new FileOutputStream("logDataFiles\\ProductCatalogue.ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(prodArray);
 			oos.close();
@@ -352,8 +352,7 @@ public class Main {
 		Products[] returnArray = new Products[10];
 
 		try {
-			FileInputStream fis = new FileInputStream(
-					System.getProperty("user.home") + "\\Desktop\\ProductCatalogue.ser");
+			FileInputStream fis = new FileInputStream("logDataFiles\\ProductCatalogue.ser");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			returnArray = (Products[]) ois.readObject();
 			ois.close();
@@ -393,7 +392,7 @@ public class Main {
 
 			switch (aktion) {
 			case "1":
-				File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\LoginDetailsCustomer.ser");
+				File checkFile = new File("logDataFiles\\LoginDetailsCustomer.ser");
 				if (checkFile.exists()) {
 					while (loginLoop) {
 
@@ -445,8 +444,7 @@ public class Main {
 		Customer returnCustomer = new Customer("Empty", "Empty");
 
 		try {
-			FileInputStream fis = new FileInputStream(
-					System.getProperty("user.home") + "\\Desktop\\LoginDetailsCustomer.ser");
+			FileInputStream fis = new FileInputStream("logDataFiles\\LoginDetailsCustomer.ser");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			returnCustomer = (Customer) ois.readObject();
 			ois.close();
@@ -465,8 +463,7 @@ public class Main {
 	// Speicherung der Anmeldedaten des Benutzers
 	public static void writeLogin(Customer customer) {
 		try {
-			FileOutputStream fos = new FileOutputStream(
-					System.getProperty("user.home") + "\\Desktop\\LoginDetailsCustomer.ser");
+			FileOutputStream fos = new FileOutputStream("logDataFiles\\LoginDetailsCustomer.ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(customer);
 			oos.close();
@@ -501,7 +498,7 @@ public class Main {
 
 			switch (aktion) {
 			case "1":
-				File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\LoginDetailsBusiness.ser");
+				File checkFile = new File("logDataFiles\\LoginDetailsBusiness.ser");
 				if (checkFile.exists()) {
 					while (loginLoop) {
 
@@ -566,8 +563,7 @@ public class Main {
 		BusinessCustomer returnCustomer = new BusinessCustomer("Empty", "Empty", 1);
 
 		try {
-			FileInputStream fis = new FileInputStream(
-					System.getProperty("user.home") + "\\Desktop\\LoginDetailsBusiness.ser");
+			FileInputStream fis = new FileInputStream("logDataFiles\\LoginDetailsBusiness.ser");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			returnCustomer = (BusinessCustomer) ois.readObject();
 			ois.close();
@@ -586,8 +582,7 @@ public class Main {
 	// Speicherung der Anmeldedaten des Firmennutzer
 	public static void writeLoginBusiness(BusinessCustomer customer) {
 		try {
-			FileOutputStream fos = new FileOutputStream(
-					System.getProperty("user.home") + "\\Desktop\\LoginDetailsBusiness.ser");
+			FileOutputStream fos = new FileOutputStream("logDataFiles\\LoginDetailsBusiness.ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(customer);
 			oos.close();
