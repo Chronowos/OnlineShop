@@ -40,7 +40,7 @@ public class ShoppingCart {
 		int amountBefore = product.getQuantity();
 
 		if (product.getQuantity() < amount) {
-			System.out.println("Fehler Bestand");
+			throw new IllegalArgumentException();
 		} else {
 			product.setQuantity(product.getQuantity() - amount);
 			myShoppingCart.add(new Products(product.getProductNumber(), product.getProductName(),

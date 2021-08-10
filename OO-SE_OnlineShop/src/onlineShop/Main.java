@@ -113,15 +113,20 @@ public class Main {
 										+ prodArray[productNumber].getQuantity() + " Stück.");
 								productQuantity = sc.nextInt();
 								myShopCart.addProductToCart(prodArray[productNumber], productQuantity);
+								saveCatalogue(prodArray);
 								putProductInCart = false;
 							} catch (ArrayIndexOutOfBoundsException | InputMismatchException e) {
 								System.out.println("------------------------------------------------");
-								System.out.println(
-										"Ungültige Produktnummer. Versuche es bitte erneut. Drücke Enter, um den Vorgang erneut zu starten.");
+								System.out.println("Fehler: Ungültige Produktnummer. Versuche es bitte erneut.");
 								System.out.println("------------------------------------------------\n");
-								sc.next();
+
+							} catch (IllegalArgumentException e) {
+								System.out.println("------------------------------------------------");
+								System.out.println("Fehler: Unzureichender Bestand. Versuche es bitte erneut.");
+								System.out.println("------------------------------------------------\n");
+
 							}
-							saveCatalogue(prodArray);
+							// saveCatalogue(prodArray);
 						}
 						putProductInCart = true;
 						break;
@@ -299,6 +304,7 @@ public class Main {
 				if (input.equals("1")) {
 					inputLoop = false;
 					serArray = loadCatalogue();
+					System.out.println("Produktkatalog-Datei wurde geladen.");
 					return serArray;
 				} else if (input.equals("2")) {
 					inputLoop = false;
@@ -310,8 +316,10 @@ public class Main {
 					inputLoop = true;
 				}
 
+			} else {
+				System.out.println("\nKeine Produktkatalog-Datei gefunden.\nStandard Produktkatalog wurde geladen.");
+				inputLoop = false;
 			}
-			inputLoop = false;
 		}
 
 		// Produkt-Objekte instanziieren und in einem Array speichern, für einfachen
