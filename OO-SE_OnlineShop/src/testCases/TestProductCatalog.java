@@ -22,17 +22,17 @@ public class TestProductCatalog {
 		prodArray[7] = new Products(669, "Kopfhörer", 5, 250.00);
 		prodArray[8] = new Products(912, "Bildschirm", 3, 478.00);
 		prodArray[9] = new Products(244, "Maus", 7, 45.00);
-		
+
 		myCatalogue.addProductToListing(prodArray[1]);
 		myCatalogue.addProductToListing(prodArray[2]);
 		myCatalogue.addProductToListing(prodArray[3]);
-		
+
 		assertEquals("Number in listing matches", 3, myCatalogue.getSize());
 	}
-	
+
 	@Test
 	public void getTest() {
-		
+
 		ProductCatalog myCatalogue = new ProductCatalog();
 		Products[] prodArray = new Products[10];
 
@@ -46,15 +46,15 @@ public class TestProductCatalog {
 		prodArray[7] = new Products(669, "Kopfhörer", 5, 250.00);
 		prodArray[8] = new Products(912, "Bildschirm", 3, 478.00);
 		prodArray[9] = new Products(244, "Maus", 7, 45.00);
-		
+
 		myCatalogue.addProductToListing(prodArray[1]);
 		myCatalogue.addProductToListing(prodArray[2]);
 		myCatalogue.addProductToListing(prodArray[3]);
-		
+
 		assertEquals("Product matches", prodArray[1].getProductName(), myCatalogue.get(0).getProductName());
-		assertEquals("Product matches", prodArray[2].getBasePrice(), myCatalogue.get(1).getBasePrice(),1e-15);
+		assertEquals("Product matches", prodArray[2].getBasePrice(), myCatalogue.get(1).getBasePrice(), 1e-15);
 		assertEquals("Product matches", prodArray[3].getProductNumber(), myCatalogue.get(2).getProductNumber());
-		
+
 	}
 
 }

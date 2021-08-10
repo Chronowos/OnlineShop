@@ -87,10 +87,10 @@ public class TestShoppingCart {
 
 		assertEquals("Has items", true, myCart.hasItems());
 	}
-	
+
 	@Test
 	public void getTotalCostTest() {
-		
+
 		Products[] prodArray = new Products[10];
 		ShoppingCart myCart = new ShoppingCart();
 
@@ -108,14 +108,14 @@ public class TestShoppingCart {
 		myCart.addProductToCart(prodArray[5], 5);
 		myCart.addProductToCart(prodArray[9], 2);
 		myCart.addProductToCart(prodArray[1], 17);
-		
+
 		assertEquals("Price matches", 5425.00, myCart.getTotalCost(), 1e-15);
-		
+
 	}
-	
+
 	@Test
 	public void printPDFTest() {
-		
+
 		Products[] prodArray = new Products[10];
 		ShoppingCart myCart = new ShoppingCart();
 
@@ -133,9 +133,9 @@ public class TestShoppingCart {
 		myCart.addProductToCart(prodArray[5], 5);
 		myCart.addProductToCart(prodArray[9], 2);
 		myCart.addProductToCart(prodArray[1], 17);
-		
+
 		myCart.createPDFBank("Teststraﬂe 10", "Sparkasse", 10050000, 123123123);
-		
+
 		File checkFile = new File(System.getProperty("user.home") + "\\Desktop\\Quittung.pdf");
 		assertEquals("File was created", true, checkFile.exists());
 	}

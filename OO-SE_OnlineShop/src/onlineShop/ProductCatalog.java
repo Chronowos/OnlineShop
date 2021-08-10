@@ -20,7 +20,7 @@ public class ProductCatalog {
 	public void addProductToListing(Products myProduct) {
 		myItemListing.add(myProduct);
 	}
-	
+
 	public Products get(int pos) {
 		returnProduct = myItemListing.get(pos);
 		return returnProduct;
@@ -31,7 +31,7 @@ public class ProductCatalog {
 		size = myItemListing.size();
 		return size;
 	}
-	
+
 	public void printListing() {
 		String outputText = String.format("%-10s %-20s %-10s %-15s", "Nummer", "Name", "Anzahl", "Preis");
 		System.out.println(outputText);
