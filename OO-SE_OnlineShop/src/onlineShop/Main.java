@@ -126,7 +126,6 @@ public class Main {
 								System.out.println("------------------------------------------------\n");
 
 							}
-							// saveCatalogue(prodArray);
 						}
 						putProductInCart = true;
 						break;
