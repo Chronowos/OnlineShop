@@ -112,6 +112,7 @@ public class Main {
 										+ prodArray[productNumber].getProductName() + ", "
 										+ prodArray[productNumber].getQuantity() + " Stück.");
 								productQuantity = sc.nextInt();
+								sc.nextLine();
 								myShopCart.addProductToCart(prodArray[productNumber], productQuantity);
 								saveCatalogue(prodArray);
 								putProductInCart = false;
