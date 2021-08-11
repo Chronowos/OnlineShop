@@ -214,25 +214,27 @@ public class Main {
 									productNumberInCart = sc.nextInt();
 									// Produkt mit der Nummer im Warenkorb finden
 									changeProduct = myShopCart.get(productNumberInCart);
-
-									System.out.println(
-											"Du hast momentan " + myShopCart.get(productNumberInCart).getQuantity()
-													+ "Elemente in deinem Warenkorb.");
+									System.out.println("------------------------------------------------");
+									System.out.println("Du hast momentan: "
+											+ myShopCart.get(productNumberInCart).getQuantity() + " Stück vom Produkt: "
+											+ myShopCart.get(productNumberInCart).getProductName()
+											+ " in deinem Einkaufswagen");
 									System.out.println("Wie viele möchtest du jetzt?");
+									System.out.println("------------------------------------------------");
 									newQuantity = sc.nextInt();
-
+									sc.nextLine();
 									myShopCart.get(productNumberInCart).setQuantity(newQuantity);
+
+									System.out.println("Erfolgreiche Bearbeitung!");
 
 									changeProductInCart = false;
 								} catch (IndexOutOfBoundsException | InputMismatchException e) {
 									System.out.println("------------------------------------------------");
-									System.out.println(
-											"Gebe bitte eine gültige Produktposition an. Drücke Enter, um den Vorgang erneut zu starten.");
+									System.out.println("Fehler: Ungültige Produktposition. Versuche es bitte erneut.");
 									System.out.println("------------------------------------------------\n");
-									sc.next();
 								}
 							}
-							shoppingCartRunning = false;
+							// shoppingCartRunning = false;
 						}
 
 						break;
