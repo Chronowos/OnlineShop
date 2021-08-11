@@ -492,6 +492,7 @@ public class Main {
 		String regPasswort;
 		Boolean loginLoop = true;
 		Boolean aktionLoop = true;
+		Boolean regLoop = true;
 		int businessSize;
 
 		// Auslesung von Inputs des Users
@@ -541,13 +542,22 @@ public class Main {
 			// Registrierung BusinessCustomer
 			case "2":
 				aktionLoop = false;
-				System.out.println("Dein Benutzername (Registrierung): ");
-				regBenutzername = sc.nextLine();
-				System.out.println("Dein Passwort (Registrierung): ");
-				regPasswort = sc.nextLine();
-				System.out.println("Deine Unternehmensgröße 1-3");
-				businessSize = sc.nextInt();
-				loginCustomer = new BusinessCustomer(regBenutzername, regPasswort, businessSize);
+				while (regLoop) {
+					try {
+						System.out.println("Dein Benutzername (Registrierung): ");
+						regBenutzername = sc.nextLine();
+						System.out.println("Dein Passwort (Registrierung): ");
+						regPasswort = sc.nextLine();
+						System.out.println("Deine Unternehmensgröße 1-3:");
+						businessSize = sc.nextInt();
+						sc.nextLine();
+						loginCustomer = new BusinessCustomer(regBenutzername, regPasswort, businessSize);
+						regLoop = false;
+					} catch (IllegalArgumentException e) {
+						System.out.println(
+								"BusinessSize / Unternehmensgröße muss zwischen 1-3 liegen. Versuche es bitte erneut.");
+					}
+				}
 				break;
 
 			default:
