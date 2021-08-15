@@ -65,9 +65,10 @@ public class Order {
 
 						System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
 						shoppingCart.createPDFBank(adresse, bank, bankCode, accountNumber);
-
+						System.out.println("------------------------------------------------");
 						System.out.println(
 								"Erfolg! Du hast gerade " + cartPrice + " € bezahlt.\nLieferadresse: " + adresse);
+						System.out.println("------------------------------------------------");
 						buyLoop = false;
 						detailLoop = false;
 					} catch (InputMismatchException e) {
@@ -99,9 +100,10 @@ public class Order {
 
 						System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
 						shoppingCart.createPDFCard(adresse, cardNumber, cvv);
-
+						System.out.println("------------------------------------------------");
 						System.out.println(
 								"Erfolg! Du hast gerade " + cartPrice + " € bezahlt.\nLieferadresse: " + adresse);
+						System.out.println("------------------------------------------------");
 						buyLoop = false;
 						detailLoopCard = false;
 					} catch (InputMismatchException e) {
@@ -193,9 +195,11 @@ public class Order {
 
 						System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
 						shoppingCart.createPDFBank(adresse, bank, bankCode, accountNumber);
-
+						
+						System.out.println("------------------------------------------------");
 						System.out.println(
 								"Erfolg! Du hast gerade " + discounted + " € bezahlt.\nLieferadresse: " + adresse);
+						System.out.println("------------------------------------------------");
 						buyLoop = false;
 						detailLoop = false;
 					} catch (InputMismatchException e) {
@@ -229,9 +233,10 @@ public class Order {
 
 						System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
 						shoppingCart.createPDFCard(adresse, cardNumber, cvv);
-
+						System.out.println("------------------------------------------------");
 						System.out.println(
 								"Erfolg! Du hast gerade " + cartPrice + " € bezahlt.\nLieferadresse: " + adresse);
+						System.out.println("------------------------------------------------");
 						buyLoop = false;
 						detailLoopCard = false;
 					} catch (InputMismatchException e) {
