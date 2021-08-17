@@ -49,12 +49,14 @@ public class Products implements Serializable {
 	}
 
 	public String toString() {
+		// Formatierung für die Ausgabe
 		String outputText = String.format("%-10s %-20s %-10s %-15s \n", productNumber, productName, quantity,
 				basePrice);
 		return outputText;
 	}
 
 	public String toStringListing() {
+		// Formatierung für die Ausgabe
 		String outputText = String.format("%-10s %-20s %-10s %-15s", productNumber, productName, quantity, basePrice);
 		return outputText;
 	}

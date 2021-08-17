@@ -8,6 +8,8 @@ public class BusinessCustomer extends Customer implements Serializable {
 
 	public BusinessCustomer(String customerName, String password, int BusinessSize) {
 		super(customerName, password);
+		// Bei einer BusinessSize größer als 3, bzw. kleiner als 1 soll ein Fehler
+		// eintreten
 		if (BusinessSize > 3 || BusinessSize < 1) {
 			throw new IllegalArgumentException(
 					"BusinessSize / Unternehmensgröße muss zwischen 1-3 liegen. Gefunden wurde aber: " + BusinessSize);
@@ -27,10 +29,8 @@ public class BusinessCustomer extends Customer implements Serializable {
 
 	@Override
 	public String toString() {
-
 		return "BusinessCustomer [BusinessSize=" + BusinessSize + ", CustomerName=" + getCustomerName() + ", Password="
 				+ getPassword() + "]";
-
 	}
 
 }

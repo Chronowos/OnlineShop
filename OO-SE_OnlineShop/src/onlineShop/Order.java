@@ -41,6 +41,7 @@ public class Order {
 		System.out.println("Gebe zu erst deine Lieferadresse an:");
 		adresse = sc.nextLine();
 
+		// Solange nicht alle Eingaben zur Bezahlung richtig eingegeben wurden
 		while (buyLoop) {
 			System.out.println("------------------------------------------------");
 			System.out.println("Wie möchtest du bezahlen? \n1: Bank | 2: Kreditkarte");
@@ -48,7 +49,10 @@ public class Order {
 			aktion = sc.nextLine();
 
 			switch (aktion) {
+
+			// Bezahlung per Bank
 			case "1":
+				// Solange nicht alle Eingaben richtig sind
 				while (detailLoop) {
 					try {
 						System.out.println("Bankname:");
@@ -79,8 +83,9 @@ public class Order {
 					}
 				}
 				break;
-
+			// Bezahlung per Kreditkarte
 			case "2":
+				// Solange nicht alle Eingaben richtig sind
 				while (detailLoopCard) {
 					try {
 						System.out.println("Kartennummer:");
@@ -169,6 +174,7 @@ public class Order {
 		System.out.println("Gebe zu erst deine Lieferadresse an:");
 		adresse = sc.nextLine();
 
+		// Solange nicht alle Eingaben zur Bezahlung richtig eingegeben wurden
 		while (buyLoop) {
 			System.out.println("------------------------------------------------");
 			System.out.println("Wie möchtest du bezahlen? \n 1: Bank | 2: Kreditkarte");
@@ -179,6 +185,7 @@ public class Order {
 
 			// Bezahlung per Bank
 			case "1":
+				// Solange nicht alle Eingaben richtig sind
 				while (detailLoop) {
 					try {
 						System.out.println("Bankname:");
@@ -195,7 +202,7 @@ public class Order {
 
 						System.out.println("Eine PDF wurde auf deinem Desktop abgelegt.");
 						shoppingCart.createPDFBank(adresse, bank, bankCode, accountNumber);
-						
+
 						System.out.println("------------------------------------------------");
 						System.out.println(
 								"Erfolg! Du hast gerade " + discounted + " € bezahlt.\nLieferadresse: " + adresse);
@@ -214,6 +221,7 @@ public class Order {
 
 			// Bezahlung per Kreditkarte
 			case "2":
+				// Solange nicht alle Eingaben richtig sind
 				while (detailLoopCard) {
 					try {
 						System.out.println("Kartennummer:");

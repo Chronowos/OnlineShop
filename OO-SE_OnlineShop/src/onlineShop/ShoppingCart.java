@@ -25,6 +25,8 @@ public class ShoppingCart {
 	private List<Products> myShoppingCart = new ArrayList<Products>();
 	private Double totalPrice = 0.0;
 	private Products returnProduct;
+
+	// Schriftarten für die PDF-Ausgabe
 	private static Font timesFont = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
 	private static Font timesFontSmall = new Font(Font.FontFamily.TIMES_ROMAN, 13, Font.NORMAL);
 	private static Font timesFontBold = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.BOLD);
@@ -39,10 +41,12 @@ public class ShoppingCart {
 
 		int amountBefore = product.getQuantity();
 
+		// Wenn mehr Produkte hinzugefügten werden sollen, als wir im Bestand haben
 		if (product.getQuantity() < amount) {
 			throw new IllegalArgumentException();
 		} else {
 			product.setQuantity(product.getQuantity() - amount);
+			// Füge das Produkt hinzu
 			myShoppingCart.add(new Products(product.getProductNumber(), product.getProductName(),
 					amountBefore - product.getQuantity(), product.getBasePrice()));
 		}
@@ -50,6 +54,7 @@ public class ShoppingCart {
 
 	// Auflistung printen
 	public void printProducts() {
+		// Formatierung für die Ausgabe
 		String outputText = String.format("%-10s %-10s %-20s %-10s %-15s", "Position", "Nummer", "Name", "Anzahl",
 				"Preis");
 		System.out.println(outputText);
@@ -85,13 +90,13 @@ public class ShoppingCart {
 		Collections.sort(myShoppingCart, numComparator);
 	}
 
-	// Absteigende Sortierung
+	// Sortierung nach Preis: absteigend
 	public void sortAfterPriceDesc() {
 		ProductPriceComparatorDescending descComparator = new ProductPriceComparatorDescending();
 		Collections.sort(myShoppingCart, descComparator);
 	}
 
-	// Aufsteigende Sortierung
+	// Sortierung nach Preis: aufsteigend
 	public void sortAfterPriceAsc() {
 		ProductPriceComparatorAscending ascComparator = new ProductPriceComparatorAscending();
 		Collections.sort(myShoppingCart, ascComparator);

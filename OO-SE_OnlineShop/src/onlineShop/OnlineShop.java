@@ -1,4 +1,5 @@
 package onlineShop;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -50,6 +51,7 @@ public class OnlineShop {
 		// Auslesung von Inputs des Users
 		Scanner sc = new Scanner(System.in);
 
+		// Login-Vorgang
 		while (earlyLoop) {
 			System.out.println("Bist du Privat- oder Geschäftskunde?\n" + "1: Privatkunde | 2: Geschäftskunde");
 			isBusiness = sc.nextLine();
